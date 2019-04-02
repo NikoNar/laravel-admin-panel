@@ -1,0 +1,27 @@
+{
+    "name": "codeman/admin-panel",
+    "description": "package for admin panel",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Codeman\\Admin\\": "src/"
+        },
+        "files": [
+            "src/Http/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codeman\\Admin\\AdminServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "spatie/laravel-analytics": "dev-master",
+        "oriceon/laravel-settings": "^1.6"
+    },
+    "require-dev": {}
+}

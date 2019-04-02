@@ -51,7 +51,7 @@ class AdminServiceProvider extends ServiceProvider
 		    __DIR__.'\Interfaces\PageInterface',
 		    __DIR__.'\Controllers\PageController'
 		);
-		require __DIR__.'/../vendor/autoload.php';
+		// require __DIR__.'/../vendor/autoload.php';
 
 		$this->app->bind(
 		    "Codeman\Admin\Interfaces\PageInterface",

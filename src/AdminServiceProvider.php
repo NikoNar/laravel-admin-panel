@@ -22,31 +22,40 @@ class AdminServiceProvider extends ServiceProvider
   //       	__DIR__.'/path/to/config/courier.php' => config_path('courier.php'),
   //       	 __DIR__.'views' => resource_path('views/vendor/admin'),
   //   	]);
+  
 
 		$this->publishes([
        	 	__DIR__.'/assets' => public_path('admin-panel'),
-   		], 'public');
+   		 ], 'public');
 
-		// Publish images config file 
-		
-		$this->publishes([
-       		__DIR__.'/config/images.php' => config_path('images.php'),
+		 $this->publishes([
+       		 __DIR__.'/config/images.php' => config_path('images.php'),
 		], 'config');
-		
-		// Publish google analytics credentials file 
+			
 		$this->publishes([
 			__DIR__.'/config/service-account-credentials.json' => storage_path('app/analytics/service-account-credentials.json'),
 		], 'storage');
+
+		$translationManagerViewPath = __DIR__.'/views/translation-manager/';
+        $this->loadViewsFrom($translationManagerViewPath, 'translation-manager');
+        $this->publishes([
+            $translationManagerViewPath => base_path('resources/views/vendor/translation-manager'),
+        ], 'views');
 
 		AliasLoader::getInstance()->alias('Form', '\Collective\Html\FormFacade');
         AliasLoader::getInstance()->alias('Html', '\Collective\Html\HtmlFacade');
         AliasLoader::getInstance()->alias('JsValidator', '\Proengsoft\JsValidation\Facades\JsValidatorFacade');
         AliasLoader::getInstance()->alias( 'LaravelLocalization' , 'Mcamara\LaravelLocalization\Facades\LaravelLocalization');
-        AliasLoader::getInstance()->alias( 'Avatar' , 'Laravolt\Avatar\Facade');
 		
-		// Register Middleware for Admin
+		AliasLoader::getInstance()->alias( 'Avatar' , 'Laravolt\Avatar\Facade');
+
 		$router = $this->app['router'];
     	$router->pushMiddlewareToGroup('admin', Http\Middleware\Admin::class);
+  //       $this->app->singleton('Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
+		// function($app){
+  //           return  new Admin($app);
+  //       });
+
 
 	}
 
@@ -56,7 +65,7 @@ class AdminServiceProvider extends ServiceProvider
 		    __DIR__.'\Interfaces\PageInterface',
 		    __DIR__.'\Controllers\PageController'
 		);
-		// require __DIR__.'/../vendor/autoload.php';
+		//require __DIR__.'/../vendor/autoload.php';
 
 		$this->app->bind(
 		    "Codeman\Admin\Interfaces\PageInterface",
@@ -80,12 +89,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->register(\Proengsoft\JsValidation\JsValidationServiceProvider::class);
         $this->app->register(\Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class);
 		$this->app->register(\Laravolt\Avatar\ServiceProvider::class);
+		$this->app->register(\Barryvdh\TranslationManager\ManagerServiceProvider::class);
 		
 		$this->setEnvironmentValue(['ANALYTICS_VIEW_ID' => '185059691']);
-
-		$this->publishes([
-			__DIR__.'/config/service-account-credentials.json' => storage_path('app/analytics/service-account-credentials.json'),
-		], 'storage');
 
 	}
 

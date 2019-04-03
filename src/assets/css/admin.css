@@ -720,7 +720,25 @@ span.twitter-typeahead{
 	height: 112px!important;
 	margin-bottom: 62px;
 }
-.feed_prod_thumb, .portfolio-thumb{
+.feed_prod_thumb .portfolio-thumb{
 	width: 100px;
 	
+}
+.faq-wrapper:first-child .fa-trash {
+	display: none;
+}
+ .faq-container .clone {
+ 	margin-bottom: 15px;
+ 	cursor: pointer;
+ }
+
+.skin-blue .main-header .navbar{
+	background-color: #222d31;
+}
+.skin-blue .main-header .logo, 
+.skin-blue .main-header li.user-header{
+	background-color: #008fca;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p{
+	color: #fff;
 }

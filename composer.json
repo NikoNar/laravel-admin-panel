@@ -1,6 +1,7 @@
 {
     "name": "codemanstudio/admin-panel",
     "description": "package for admin panel",
+    "keywords": ["laravel", "admin panel", "codeman studio"],
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",

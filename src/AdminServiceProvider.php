@@ -25,23 +25,28 @@ class AdminServiceProvider extends ServiceProvider
 
 		$this->publishes([
        	 	__DIR__.'/assets' => public_path('admin-panel'),
-   		 ], 'public');
+   		], 'public');
 
-		 $this->publishes([
-       		 __DIR__.'/config/images.php' => config_path('images.php'),
-   		 ], 'config');
+		// Publish images config file 
+		
+		$this->publishes([
+       		__DIR__.'/config/images.php' => config_path('images.php'),
+		], 'config');
+		
+		// Publish google analytics credentials file 
+		$this->publishes([
+			__DIR__.'/config/service-account-credentials.json' => storage_path('app/analytics/service-account-credentials.json'),
+		], 'storage');
 
 		AliasLoader::getInstance()->alias('Form', '\Collective\Html\FormFacade');
         AliasLoader::getInstance()->alias('Html', '\Collective\Html\HtmlFacade');
         AliasLoader::getInstance()->alias('JsValidator', '\Proengsoft\JsValidation\Facades\JsValidatorFacade');
         AliasLoader::getInstance()->alias( 'LaravelLocalization' , 'Mcamara\LaravelLocalization\Facades\LaravelLocalization');
         AliasLoader::getInstance()->alias( 'Avatar' , 'Laravolt\Avatar\Facade');
-
-  //       $this->app->singleton('Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-		// function($app){
-  //           return  new Admin($app);
-  //       });
-
+		
+		// Register Middleware for Admin
+		$router = $this->app['router'];
+    	$router->pushMiddlewareToGroup('admin', Http\Middleware\Admin::class);
 
 	}
 
@@ -74,7 +79,43 @@ class AdminServiceProvider extends ServiceProvider
 		$this->app->register(\Collective\Html\HtmlServiceProvider::class);
         $this->app->register(\Proengsoft\JsValidation\JsValidationServiceProvider::class);
         $this->app->register(\Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class);
-        $this->app->register(\Laravolt\Avatar\ServiceProvider::class);
+		$this->app->register(\Laravolt\Avatar\ServiceProvider::class);
+		
+		$this->setEnvironmentValue(['ANALYTICS_VIEW_ID' => '185059691']);
+
+		$this->publishes([
+			__DIR__.'/config/service-account-credentials.json' => storage_path('app/analytics/service-account-credentials.json'),
+		], 'storage');
+
+	}
+
+	public function setEnvironmentValue(array $values)
+	{
+
+		$envFile = app()->environmentFilePath();
+		$str = file_get_contents($envFile);
+
+		if (count($values) > 0) {
+			foreach ($values as $envKey => $envValue) {
+
+				$str .= "\n"; // In case the searched variable is in the last line without \n
+				$keyPosition = strpos($str, "{$envKey}=");
+				$endOfLinePosition = strpos($str, "\n", $keyPosition);
+				$oldLine = substr($str, $keyPosition, $endOfLinePosition - $keyPosition);
+
+				// If key does not exist, add it
+				if (!$keyPosition || !$endOfLinePosition || !$oldLine) {
+					$str .= "{$envKey}={$envValue}\n";
+				} else {
+					//$str = str_replace($oldLine, "{$envKey}={$envValue}", $str);
+				}
+
+			}
+		}
+
+		$str = substr($str, 0, -1);
+		if (!file_put_contents($envFile, $str)) return false;
+		return true;
 
 	}
 }

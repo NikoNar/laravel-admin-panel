@@ -35,7 +35,7 @@ This package support Laravel 5.8.8 or higher.
     
     Create images/users folder under public puth
   
-   ## Step 5
+  ## Step 6
     
     Follow the URL yoursite.com/admin/login
       

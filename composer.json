@@ -7,7 +7,8 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Codeman\\Admin\\": "src/"
+            "Codeman\\Admin\\": "src/",
+            "Codeman\\Admin\\Menu\\": "src/moduls/wmenu-builder/src/"
         },
         "files": [
             "src/Http/helpers.php"
@@ -16,8 +17,12 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Codeman\\Admin\\AdminServiceProvider"
-            ]
+                "Codeman\\Admin\\AdminServiceProvider",
+                "Codeman\\Admin\\Menu\\MenuServiceProvider"
+            ],
+            "aliases": {
+                "Menu": "Codeman\\Admin\\Menu\\Facades\\Menu"
+            }
         }
     },
     "require": {

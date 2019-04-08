@@ -85,8 +85,8 @@ class PagesController extends Controller
 	*/
 	public function store(PageRequest $request, PageInterface $pageInterface )
 	{
-		dd($request->all());
-		$this->authorize('create', $this->model);
+		// dd($request->all());
+		// $this->authorize('create', $this->model);
 
 
 
@@ -232,7 +232,7 @@ class PagesController extends Controller
 	public function update($id, PageRequest $request, PageInterface $pageInterface)
 	{
 		// $this_page = $pageInterface->getById($id);
-		$this->authorize('update', $this->model);
+		// $this->authorize('update', $this->model);
 		// dd(request()->all());
 		$request['lecturers'] = json_encode($request->lecturers);
 		// dd($request->all()); 

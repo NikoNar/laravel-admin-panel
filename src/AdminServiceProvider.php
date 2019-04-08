@@ -48,6 +48,12 @@ class AdminServiceProvider extends ServiceProvider
         AliasLoader::getInstance()->alias( 'LaravelLocalization' , 'Mcamara\LaravelLocalization\Facades\LaravelLocalization');
 		
 		AliasLoader::getInstance()->alias( 'Avatar' , 'Laravolt\Avatar\Facade');
+		AliasLoader::getInstance()->alias( 'Menu' , 'Codeman\Admin\Menu\Facades\Menu');
+
+        
+
+        
+
 
 		$router = $this->app['router'];
     	$router->pushMiddlewareToGroup('admin', Http\Middleware\Admin::class);
@@ -90,6 +96,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->register(\Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class);
 		$this->app->register(\Laravolt\Avatar\ServiceProvider::class);
 		$this->app->register(\Barryvdh\TranslationManager\ManagerServiceProvider::class);
+		$this->app->register(Menu\MenuServiceProvider::class);
 		
 		$this->setEnvironmentValue(['ANALYTICS_VIEW_ID' => '185059691']);
 

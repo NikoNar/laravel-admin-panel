@@ -3,7 +3,14 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        
+        <div class="user-panel">
+            <div class="info">
+                @if(Auth::check())
+                <p>{{ auth()->user()->name }}</p>
+                @endif
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
@@ -77,11 +84,11 @@
                 </ul>  
             </li>
             
-            <li class="@if(Request::is('admin/menus*')) active @endif">
+            <!-- <li class="@if(Request::is('admin/menus*')) active @endif">
                 <a href="{!! route('menu-index') !!}">
                     <i class="fa fa-th"></i> <span>Menus</span>
                 </a>
-                <ul class="treeview-menu">
+                {{-- <ul class="treeview-menu">
                     <li class="@if(Request::is('admin/menus')) active @endif">
                         <a href="{!! route('menu-index') !!}">
                             <i class="fa fa-circle-notch fz-12"></i> View All Menus
@@ -92,8 +99,8 @@
                             <i class="fa fa-circle-notch fz-12"></i> Create New Menu
                         </a>
                     </li>
-                </ul>
-            </li>
+                </ul> --}}
+            </li> -->
             
             <li class="treeview @if(Request::is('admin/lecturer*')) active @endif">
                <a href="#">
@@ -180,12 +187,19 @@
             </li>
             <li class="@if(Request::is('admin/translations*')) active @endif">
                 <a href="{!! url('admin/translations/view/translate') !!}" target="_blank">
-                    <i class="fa fa-language"></i> Translations 
+                    <i class="fa fa-language"></i>  <span>Translations</span> 
                 </a>
             </li>
+            
+            <li class="@if(Request::is('admin/settings*')) active @endif">
+                <a href="{!! route('setting.index') !!}">
+                    <i class="fa fa-cogs"></i>  <span>Settings</span> 
+                </a>
+            </li>
+            <hr>
             <li class="@if(Request::is('admin/applications*')) active @endif">
                 <a href="{!! route('applications-index') !!}">
-                    <i class="fa fa-address-card"></i> Applications 
+                    <i class="fa fa-address-card"></i><span>Applications</span>  
                 </a>
             </li>
         </ul>

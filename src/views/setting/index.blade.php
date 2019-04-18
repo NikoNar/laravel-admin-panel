@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin-panel::layouts.app')
 @section('style')
 	<!-- DataTables -->
 	<link rel="stylesheet" href="{{ asset('admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -10,8 +10,9 @@
 		    <div class="box-body">
 	    		<div class="clearfix"></div>
 	    		<br>
+
 	    		<div id="resource-container">
-					{!! Form::model($settings, ['action' => 'Admin\SettingsController@createOrUpdate', 'method' => 'POST', 'files' => true]) !!}
+					{!! Form::model($settings, ['route' => 'setting.update', 'method' => 'POST', 'files' => true]) !!}
 					<div class="col-md-12">
 						<div class="col-md-3 no-padding-left" style="height: 34px; line-height: 34px;">	
 								{!! Form::label('site_name', 'Site Name:') !!}
@@ -22,27 +23,43 @@
 								    <span class="input-group-addon">
 								        <span class="fa fa-font"></span>
 								    </span>
-									{!! Form::text('site_name', null, ['class' => 'form-control', 'placeholder' => 'Golden Apricot']) !!}
+									{!! Form::text('site_name', null, ['class' => 'form-control', 'placeholder' => 'Kojoyan Studio']) !!}
 								</div>
 							</div>
 						</div>
+						
+
+						<div class="col-md-3 no-padding-left" style="height: 34px; line-height: 34px;">	
+							{{ Form::label('index', 'Home Page:') }}
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">	
+								<div class="input-group">
+								    <span class="input-group-addon">
+								        <span class="fa fa-user"></span>
+								    </span>
+									{{ Form::select('index', $pages, isset($selected) && $selected != null ? $selected : null) }}
+								</div>
+					    	</div>
+				    	</div>
+
 					</div>
 					
 					<div class="col-md-12">
 						<h4>Social Icons</h4>
 						<hr>
 						<div class="social-icons-group">
-							@if(isset($settings) && !empty($settings['social_icon_name']) && is_array($settings['social_icon_name']))
-								@foreach($settings['social_icon_name'] as $key => $value)
+							@if(isset($settings) && isset($settings['social']))
+								@foreach($settings['social'] as $key => $value)
 									<div class="item">
 										<div class="col-md-4">
 											<div class="form-group">
 												<div class='input-group'>
 												    <span class="input-group-addon">
-												        <span class="fa {{ $value }}"></span>
+												        <span class="fa {{ $value->name }}"></span>
 												    </span>
-												    <select name="social_icon_name[]" class="social_icon_name">
-														@include('admin.layouts.parts._fontawesom_dropdown',['selected' => $value])
+												    <select name="social[{{$key}}][name]" class="social_icon_name">
+														@include('admin-panel::layouts.parts._fontawesom_dropdown',['selected' => $value->name])
 												    </select>
 												</div>
 											</div>
@@ -53,7 +70,7 @@
 												    <span class="input-group-addon">
 												        <span class="fa fa-link"></span>
 												    </span>
-													{!! Form::text('social_icon_url[]', $settings['social_icon_url'][$key] ? $settings['social_icon_url'][$key] : '',  ['class' => 'form-control', 'placeholder' => 'Socioal Site Url', 'required']) !!}
+													{!! Form::text('social['.$key.'][url]', $value->url ?? null,  ['class' => 'form-control social_icon_url', 'placeholder' => 'Socioal Site Url', 'required']) !!}
 												</div>
 											</div>
 										</div>
@@ -71,7 +88,7 @@
 						
 						<div class="clearfix"></div>
 					</div>
-					<div class="col-md-12">
+					<!-- <div class="col-md-12">
 						<h4>Links</h4>
 						<hr>
 						<div class="col-md-3 no-padding-left" style="height: 34px; line-height: 34px;">
@@ -184,7 +201,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="clearfix"></div>
 						<br>
 						<hr>
@@ -197,6 +214,7 @@
 
 					{!! Form::close() !!}
 
+
 	    		</div>
 		    	<div id="item-example" style="display: none;">
 		    		<div class="item">
@@ -206,8 +224,8 @@
 		    					    <span class="input-group-addon">
 		    					        <span class="fa fa-search"></span>
 		    					    </span>
-		    					    <select name="social_icon_name[]" class="social_icon_name" style="width:100%">
-		    							@include('admin.layouts.parts._fontawesom_dropdown', ['selected' => ''])
+		    					    <select name="social[0][name]" class="social_icon_name" style="width:100%">
+		    							@include('admin-panel::layouts.parts._fontawesom_dropdown', ['selected' => ''])
 		    					    </select>
 		    					</div>
 		    				</div>
@@ -218,7 +236,7 @@
 		    					    <span class="input-group-addon">
 		    					        <span class="fa fa-link"></span>
 		    					    </span>
-		    						{!! Form::text('social_icon_url[]', null, ['class' => 'form-control', 'placeholder' => 'Socioal Site Url', 'required']) !!}
+		    						{!! Form::text('social[0][url]', null, ['class' => 'form-control social_icon_url', 'placeholder' => 'Socioal Site Url', 'required']) !!}
 		    					</div>
 		    				</div>
 		    			</div>
@@ -255,6 +273,8 @@
 		 		var container  = $('.social-icons-group');
 		 		var item = $('#item-example').find('.item').find('.select2-container').remove();
 		 		var item = $('#item-example').find('.item').clone();
+		 		item.find('.social_icon_name').attr('name', "social["+$('.social_icon_name').length+"][name]");
+		 		item.find('.social_icon_url').attr('name', "social["+$('.social_icon_url').length+"][url]");
 		 		container.append(item);
 		 		$('select').select2();
 		 	});

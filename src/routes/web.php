@@ -187,6 +187,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/news/destroy/{id}', 'NewsController@destroy')->name('news-destroy');
 		Route::get('admin/news/categories', 'NewsController@categories')->name('news-categories');
 
+		// Settings Controller
+		Route::get('admin/settings', 'SettingsController@index')->name('setting.index');
+		Route::post('admin/settings/update', 'SettingsController@createOrUpdate')->name('setting.update');
+
 
 		// Lecturers Controller
 		Route::get('admin/lecturers', 'LecturerController@index')->name('lecturer-index');

@@ -3,68 +3,73 @@
 namespace Codeman\Admin\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-// use App\Models\Setting;
-use Settings;
+use Codeman\Admin\Models\Setting;
+use Codeman\Admin\Models\Page;
+
 
 class SettingsController extends Controller
 {
     /**
-       * Run constructor
-       *
-       * @return Response
-       */
-    public function __construct(Settings $setting)
+     * Run constructor
+     *
+     * @return Response
+     */
+    public function __construct(Setting $setting)
     {
-    	$this->middleware('admin');
-    	$this->settings =  $setting;
+
+        $this->middleware('admin');
+        $this->settings =  $setting;
     }
 
     /**
-       * Display a listing of the resource.
-       *
-       * @return Response
-       */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
-    	$settings = $this->settings::getAll();
+        $settings = $this->settings->pluck('value', 'key');
+        $pages = Page::where('lang', 'en')->pluck('title','id');
 
-    	$settings['social_icon_url'] = json_decode($settings['social_icon_url']);
-    	$settings['social_icon_name'] = json_decode($settings['social_icon_name']);
-    	
-    	return view('admin.setting.index', ['settings' => $settings]);
+        foreach ($settings as $key => $value) {
+
+            if(isJson($value)) {
+                $settings[$key] = json_decode($value);
+            }
+        }
+
+        return view('admin-panel::setting.index', ['settings' => $settings, 'pages'=> $pages ]);
     }
 
-	/**
-	* Show the form for creating a new resource.
-	*
-	* @return Response
-	*/
-	public function createOrUpdate(Request $request)
-	{	
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function createOrUpdate(Request $request)
+    {
+        if($request->site_name == null){
+            $request['site_name']  = env('APP_NAME');
+        }
+//        dd($request->all(),env('APP_NAME'));
 
-    	foreach ($request->all() as $key => $value) {
-            if($key == 'download_program_file_name' && !$request->hasFile('download_program')){
-                $key = 'download_program';
-                if($value == null){
-                    $fileForDelete = $this->settings::get($key);
-                    $this->removeFile($fileForDelete);
+        // $index = $request->home_page;
+        if($request->has('_token')){
+            unset($request['_token']);
+
+            foreach ($request->all() as $key => $value) {
+                if(is_array($value)) {
+                    // dd($request->all());
+                    $value = json_encode($value);
                 }
+//                 dd($key, $value);
+                $this->settings->updateOrCreate(['key' => $key], ['key' => $key, 'value' => $value]);
             }
-            if($key == 'download_program'){
-                if($request->hasFile('download_program')){
-                    $fileForDelete = $this->settings::get($key);
-                    $this->removeFile($fileForDelete);
-                    $value = $this->uploadDownloadableFile($request->file('download_program'));
-                }
-            }
-    		if(isset($value) && !empty($value) && is_array($value)) {
-    			$value = json_encode($value);
-    		}
-    		$this->settings::set($key, $value);
-    	}
-    	return redirect()->back()->with('success', 'Settings Successfully Updated.');
-	}
+
+        }
+
+        return redirect()->back()->with('success', 'Settings Successfully Updated.');
+    }
 
     private function uploadDownloadableFile( $file )
     {

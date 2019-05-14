@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['id','parent_id', 'title_eng', 'title_arm', 'type', 'is_translated', 'slug', 'order', 'thumbnail', 'level', 'node'];
+    protected $fillable = ['id','parent_id', 'title_en', 'title_arm', 'type', 'is_translated', 'slug', 'order', 'thumbnail', 'level', 'node'];
 
     /**
     	* Get the categoru childs.
@@ -60,5 +60,11 @@ class Category extends Model
     {
         return $this->morphedByMany('Codeman\Admin\Models\Portfolio', 'categorisable');
     }
+
+    public function files()
+    {
+        return $this->morphedByMany('Codeman\Admin\Models\File', 'categorisable');
+    }
+
 }
 

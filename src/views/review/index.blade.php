@@ -16,7 +16,7 @@
 	    		</div> --}}
 	    	</div>
 	    	<div class="col-md-8 no-padding pull-right">
-	    		<a href="{{ route("review-create") }}" class="btn btn-primary btn-flat  btn-medium pull-right">Insert New review</a>
+	    		<a href="{{ route("review-create") }}" class="btn btn-primary btn-flat  btn-medium pull-right">Insert New Partner</a>
 	    		@include('admin-panel::layouts.resource_filter')
 				
     		</div>

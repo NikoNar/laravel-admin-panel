@@ -53,7 +53,7 @@
 	{{-- @include('admin-panel::layouts.content-builder.index') --}}
 
 
-	@if(isset($template) && $template != 'graphic' && isset($template) && $template != 'interior' && $template != 'index')
+	@if(isset($template) && $template != 'course-page' && isset($template) && $template != 'contact-page' && $template != 'index')
 	<div class="form-group">
 		{!! Form::label('content', 'Content'); !!}
 		{!! Form::textarea('content', null, ['class' => 'form-control', 'id' => 'content', 'name' =>  'content']); !!}
@@ -113,9 +113,13 @@
 		{!! Form::select('template', [
 								'' => 'Default Template',
 								'index' => 'Index Page',
-								'interior' => 'Interior Page',								
+{{--								'interior' => 'Interior Page',								--}}
+								'course-page' => 'Course Page',
 								'contact-page' => 'Contact Page',
 								'about-us' => 'About Page',
+								'services' => 'Services Page',
+								'publications' => 'Publications Page',
+								'useful-files' => 'Useful Files Page',
 								'faq' => 'FAQ Page',
 								{{-- 'about-history' => 'About History',
 								'films' => 'Films',

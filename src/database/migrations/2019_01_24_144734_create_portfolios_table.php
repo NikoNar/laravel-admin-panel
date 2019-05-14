@@ -16,7 +16,7 @@ class CreatePortfoliosTable extends Migration
         Schema::create('portfolios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug')->unique();
-            $table->enum('lang', ['en','arm']);
+            $table->enum('lang', ['en','arm', 'ru']);
             $table->integer('parent_lang_id')->nullable();
             $table->string('title')->nullable();
             $table->string('thumbnail')->nullable();

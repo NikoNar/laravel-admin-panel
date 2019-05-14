@@ -16,7 +16,7 @@
 	    		</div> --}}
 	    	</div>
 	    	<div class="col-md-8 no-padding pull-right">
-	    		<a href="{{ route("lecturer-create") }}" class="btn btn-primary btn-flat  btn-medium pull-right">Insert New Lecturer</a>
+	    		<a href="{{ route("lecturer-create") }}" class="btn btn-primary btn-flat  btn-medium pull-right">Insert New Team Member</a>
 	    		@include('admin-panel::layouts.resource_filter')
 				
     		</div>

@@ -3,14 +3,14 @@
 namespace Codeman\Admin\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Codeman\Admin\Http\Requests\PortfolioRequest;
+use Codeman\Admin\Http\Requests\ResourceRequest;
 use Codeman\Admin\Services\CRUDService;
 use Codeman\Admin\Http\Controllers\Controller;
-use Codeman\Admin\Models\Portfolio;
+use Codeman\Admin\Models\Resource;
 use Codeman\Admin\Models\Category;
 use Illuminate\Support\Facades\Response;
 
-class PortfolioController extends Controller
+class ResourceController extends Controller
 {
 
     protected $model;
@@ -19,7 +19,7 @@ class PortfolioController extends Controller
        *
        * @return Response
        */
-    public function __construct(Portfolio $model)
+    public function __construct(Resource $model)
     {
         // $this->settings = $settings;
         // $this->middleware('admin');
@@ -33,7 +33,7 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        return view('admin-panel::portfolio.index', ['portfolios' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => true]);
+        return view('admin-panel::resource.index', ['resources' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => true]);
     }
 
 
@@ -44,9 +44,9 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        return view('admin-panel::portfolio.create', [
+        return view('admin-panel::resource.create', [
                 'order' => $this->CRUD->getMaxOrderNumber(),
-                'categories' => Category::where('type', 'portfolio')->get()
+                'categories' => Category::where('type', 'resource')->get()
             ]);
     }
 
@@ -56,18 +56,18 @@ class PortfolioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PortfolioRequest $request)
+    public function store(ResourceRequest $request)
     {
         $this->authorize('create', $this->model);
         // dd($request->all()); 
-        $portfolio =  $this->CRUD->store($request->all());
+        $resource =  $this->CRUD->store($request->all());
         if(!empty($request->category_id)){
                 foreach($request->category_id as $key=>$id){
-                    $portfolio->categories()->attach($id); 
+                    $resource->categories()->attach($id); 
                 }
             }
      
-        return redirect()->route('portfolio-edit', $portfolio->id)->with('success', 'Portfolio Inserted Successfully.');
+        return redirect()->route('resource-edit', $resource->id)->with('success', 'Resource Inserted Successfully.');
     }
 
     /**
@@ -90,9 +90,9 @@ class PortfolioController extends Controller
     public function edit($id)
     {
         
-        return view('admin-panel::portfolio.edit', [ 
-            'portfolio' => $this->CRUD->getById($id),
-            'categories' => Category::where('type', 'portfolio')->get()
+        return view('admin-panel::resource.edit', [ 
+            'resource' => $this->CRUD->getById($id),
+            'categories' => Category::where('type', 'resource')->get()
         ]);
     }
 
@@ -103,12 +103,12 @@ class PortfolioController extends Controller
      * @param  \App\Protfolio  $protfolio
      * @return \Illuminate\Http\Response
      */
-    public function update(PortfolioRequest $request,  $id)
+    public function update(ResourceRequest $request,  $id)
     {
         
         $this->CRUD->update($id, $request->all());
-        Portfolio::find($id)->categories()->sync($request->category_id);
-        return redirect()->route('portfolio-edit', $id)->with('success', 'Portfolio Successfully Updated.');
+        Resource::find($id)->categories()->sync($request->category_id);
+        return redirect()->route('resource-edit', $id)->with('success', 'Resource Successfully Updated.');
     }
 
     /**
@@ -119,14 +119,14 @@ class PortfolioController extends Controller
     public function destroy($id)
     {
         if($this->CRUD->destroy($id)){
-            return redirect()->back()->with('success', 'Portfolio Successfully Deleted.');
+            return redirect()->back()->with('success', 'Resource Successfully Deleted.');
         }
     }
 
     public function categories()
     {
-        $categories  = Category::where('type', 'portfolio')->get();
-        $type  = 'portfolio';
+        $categories  = Category::where('type', 'resource')->get();
+        $type  = 'resource';
         return view('admin-panel::category.index',  compact('categories', 'type'));
     }
 
@@ -142,10 +142,10 @@ class PortfolioController extends Controller
         // dd($parent_lang_id);
         if($translate)
         {
-            return view('admin-panel::portfolio.edit', [
-                'portfolio' => $translate,
+            return view('admin-panel::resource.edit', [
+                'resource' => $translate,
                 'parent_lang_id' => $parent_lang_id,
-                'categories' => Category::where('type', 'portfolio')->get(),
+                'categories' => Category::where('type', 'resource')->get(),
                 'order' => $this->CRUD->getMaxOrderNumber(),
             ]);
         }

@@ -23,7 +23,7 @@
 								    <span class="input-group-addon">
 								        <span class="fa fa-font"></span>
 								    </span>
-									{!! Form::text('site_name', null, ['class' => 'form-control', 'placeholder' => 'Kojoyan Studio']) !!}
+									{!! Form::text('site_name', null, ['class' => 'form-control', 'placeholder' => env('APP_NAME')]) !!}
 								</div>
 							</div>
 						</div>

@@ -31,7 +31,7 @@ class LecturerRequest extends FormRequest
                'thumbnail' => 'required',
                'position' => 'required',
                'content' => 'required',
-               'category_id' =>'required'
+              
                
                
             ];
@@ -42,7 +42,7 @@ class LecturerRequest extends FormRequest
                'thumbnail' => 'required',
                'position' => 'required',
                'content' => 'required',
-               'category_id' =>'required'
+              
               
             ];
         }

@@ -15,7 +15,7 @@ class CreateLecturersTable extends Migration
     {
         Schema::create('lecturers', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('lang', ['en','arm']);
+            $table->enum('lang', ['en','arm', 'ru']);
             $table->integer('parent_lang_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();

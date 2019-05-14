@@ -10,7 +10,7 @@
 @endif
 <div class="col-md-9 border-right">
 	<div class="form-group">
-		{!! Form::label('title', 'Author') !!}
+		{!! Form::label('title', 'Name') !!}
 		<div class='input-group'>
 		    <span class="input-group-addon">
 		        <span class="fa fa-font"></span>

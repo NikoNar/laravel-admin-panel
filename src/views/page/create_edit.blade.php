@@ -47,26 +47,23 @@
 	    	if($('#content').length > 0){
 	    		CKEDITOR.replace('content');	  			
 	  		}
+	  		if($('#principles').length > 0){
+	    		CKEDITOR.replace('principles');	  			
+	  		}
 	  		if($('#courses').length > 0){
 	    		CKEDITOR.replace('courses');	  			
+	  		}
+	  		if($('#banner').length > 0){
+	    		CKEDITOR.replace('banner');	  			
+	  		}
+	  		if($('#company').length > 0){
+	    		CKEDITOR.replace('company');	  			
 	  		}
 	  		if($('#image').length > 0){
 	    		CKEDITOR.replace('image');	  			
 	  		}
 	  		if($('#table').length > 0){
 	    		CKEDITOR.replace('table');	  			
-	  		}
-	  		if($('#section-1').length > 0){
-	    		CKEDITOR.replace('section-1');	  			
-	  		}
-	  		if($('#section-2').length > 0){
-	    		CKEDITOR.replace('section-2');	  			
-	  		}
-	  		if($('#section-3').length > 0){
-	    		CKEDITOR.replace('section-3');	  			
-	  		}
-	  		if($('#section-4').length > 0){
-	    		CKEDITOR.replace('section-4');	  			
 	  		}
 	  	})
   	

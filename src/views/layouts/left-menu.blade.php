@@ -60,31 +60,72 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview @if(Request::is('admin/portfolio*')) active @endif">
+            <li class="treeview @if(Request::is('admin/servisec*')) active @endif">
                 <a href="#">
-                    <i class="fas fa-briefcase"></i>
-                    <span>Portfolio</span>
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Services</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="@if(Request::is('admin/portfolio')) active @endif">
-                        <a href="{!! route('portfolio-index') !!}">
+                    <li class="@if(Request::is('admin/servisec')) active @endif">
+                        <a href="{!! route('service-index') !!}">
                             <i class="fa fa-circle-notch fz-12"></i> View All
                         </a>
                     </li>
-                    <li class="@if(Request::is('admin/portfolio/create')) active @endif">
-                        <a href="{!! route('portfolio-create') !!}">
+                    <li class="@if(Request::is('admin/servisec/create')) active @endif">
+                        <a href="{!! route('service-create') !!}">
                             <i class="fa fa-circle-notch fz-12"></i> Add New
                         </a>
                     </li>
-                    <li class="@if(Request::is('admin/portfolio/categories')) active @endif">
-                        <a href="{!! route('portfolio-categories') !!}">
+                </ul>
+            </li>
+{{--            <li class="treeview @if(Request::is('admin/resource*')) active @endif">--}}
+{{--                <a href="#">--}}
+{{--                    <i class="fas fa-briefcase"></i>--}}
+{{--                    <span>Resources</span>--}}
+{{--                </a>--}}
+{{--                <ul class="treeview-menu">--}}
+{{--                    <li class="@if(Request::is('admin/resource')) active @endif">--}}
+{{--                        <a href="{!! route('resource-index') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> View All--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="@if(Request::is('admin/resource/create')) active @endif">--}}
+{{--                        <a href="{!! route('resource-create') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> Add New--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="@if(Request::is('admin/resource/categories')) active @endif">--}}
+{{--                        <a href="{!! route('resource-categories') !!}">--}}
+{{--                            <i class="fa fa-circle-o"></i> Categories--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>  --}}
+{{--            </li>--}}
+            <li class="treeview @if(Request::is('admin/file*')) active @endif">
+                <a href="#">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Files</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@if(Request::is('admin/file')) active @endif">
+                        <a href="{!! route('file-index') !!}">
+                            <i class="fa fa-circle-notch fz-12"></i> View All
+                        </a>
+                    </li>
+                    <li class="@if(Request::is('admin/file/create')) active @endif">
+                        <a href="{!! route('file-create') !!}">
+                            <i class="fa fa-circle-notch fz-12"></i> Add New
+                        </a>
+                    </li>
+                    <li class="@if(Request::is('admin/file/categories')) active @endif">
+                        <a href="{!! route('file-categories') !!}">
                             <i class="fa fa-circle-o"></i> Categories
                         </a>
                     </li>
-                </ul>  
+                </ul>
             </li>
             
-            <!-- <li class="@if(Request::is('admin/menus*')) active @endif">
+            <li class="@if(Request::is('admin/menus*')) active @endif">
                 <a href="{!! route('menu-index') !!}">
                     <i class="fa fa-th"></i> <span>Menus</span>
                 </a>
@@ -100,12 +141,12 @@
                         </a>
                     </li>
                 </ul> --}}
-            </li> -->
+            </li>
             
             <li class="treeview @if(Request::is('admin/lecturer*')) active @endif">
                <a href="#">
-                   <i class="fas fa-chalkboard-teacher"></i>
-                   <span>lecturers</span>
+                   <i class="fas fa-users"></i>
+                   <span>Team</span>
                </a>
                <ul class="treeview-menu">
                    <li class="@if(Request::is('admin/lecturer')) active @endif">
@@ -127,8 +168,8 @@
            </li>
            <li class="treeview @if(Request::is('admin/review*')) active @endif">
                <a href="#">
-                   <i class="fas fa-comments"></i>
-                   <span>Reviews</span>
+                   <i class="fas fa-handshake"></i>
+                   <span>Partners</span>
                </a>
                <ul class="treeview-menu">
                    <li class="@if(Request::is('admin/review')) active @endif">

@@ -21,7 +21,7 @@
 @section('content')
 	<div class="box">
 	    <div class="box-header with-border">
-	        <h3 class="box-title">Edit Lecturer</h3>
+	        <h3 class="box-title">Edit Team Member</h3>
 	       
 	        <a href="{{ route('lecturer-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
 	        @if(isset($parent_lang_id) || isset($lecturer) && $lecturer->lang == 'arm')

@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.colorButton_enableMore = '#3e59ae';
 	config.colorButton_colors = '222,d7af37,d00';
 	config.format_tags = 'p;h1;h2;h3;h4;h5;h6;pre';
-	config.extraPlugins = 'font,image2,justify,colorbutton,colordialog,embedsemantic,iframe,smiley,letterspacing,lineheight,texttransform,liststyle,simplebutton,media,wrap';
+	config.extraPlugins = 'btgrid,font,image2,justify,colorbutton,colordialog,embedsemantic,iframe,smiley,letterspacing,lineheight,texttransform,liststyle,simplebutton,media,wrap';
 	config.allowedContent = true;
 
 	// Simplify the dialog windows.

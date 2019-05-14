@@ -54,9 +54,9 @@
 
 	<script>
 	  	$(function () {
-	    	if($('#content').length > 0){
-	    		CKEDITOR.replace('content');	  			
-	  		}
+	    // 	if($('#content').length > 0){
+	    // 		CKEDITOR.replace('content');	  			
+	  		// }
 	    	
 	    	// var image_tag="<img src='http://gaiff-laravel.fx/images/media/full_size/c10-large.jpg'>";
 	    	// var doctarget = opener.CKEDITOR.instances.editable;

@@ -59,16 +59,16 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box">
-                    <a href="{!!route('portfolio-index') !!}">
+                    <a href="{!!route('resource-index') !!}">
                     <span class="info-box-icon bg-green"><i class="fas fa-briefcase"></i></span>
                     </a>    
 
                     <div class="info-box-content">
-                      <span class="info-box-text" style="">Portfolio
-                      <span class="info-box-number">{!! $portfolio_count !!}</span>
+                      <span class="info-box-text" style="">resource
+                     
                       </span>
                     </div>
-                    <a href="{!! route('portfolio-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{!! route('resource-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
                 <!-- /.info-box-content -->
               </div>
               <!-- /.info-box -->

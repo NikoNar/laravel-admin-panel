@@ -16,7 +16,7 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->nullable();
-            $table->enum('lang', ['en','arm']);
+            $table->enum('lang', ['en','arm', 'ru']);
             $table->integer('parent_lang_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();

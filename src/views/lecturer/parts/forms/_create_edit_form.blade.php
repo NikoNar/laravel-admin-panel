@@ -32,8 +32,8 @@
 		{!! Form::text('position', null, ['class' => 'form-control']); !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('content', 'About'); !!}
-		{!! Form::textarea('content', null, ['class' => 'form-control',  'name' =>  'content']); !!}	
+		{!! Form::label('content', 'LinkedIn'); !!}
+		{!! Form::text('content', null, ['class' => 'form-control']); !!}	
 	</div>
 	<div class="clearfix"></div>
 	<div class="box">

@@ -90,11 +90,6 @@ class PagesController extends Controller
 
 
 
-		if($request->has('lecturers')){
-			$request['lecturers'] = json_encode($request->lecturers);
-		} else {
-			$request['lecturers'] = "";
-		}
 		$inputs = $pageInterface->getMaxOrderNumber($request->all());
 		
 		if(null != $page = $this->CRUD->store($inputs)){
@@ -234,7 +229,7 @@ class PagesController extends Controller
 		// $this_page = $pageInterface->getById($id);
 		// $this->authorize('update', $this->model);
 		// dd(request()->all());
-		$request['lecturers'] = json_encode($request->lecturers);
+		
 		// dd($request->all()); 
 		
 		if(null != $page = $pageInterface->update($id, $request->all())){

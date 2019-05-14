@@ -107,15 +107,26 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/programs/categories', 'ProgramController@categories')->name('program-categories');
 
 
-		// PortfolioController
-		Route::get('admin/portfolio', 'PortfolioController@index')->name('portfolio-index');
-		Route::get('admin/portfolio/create', 'PortfolioController@create')->name('portfolio-create');
-		Route::post('admin/portfolio/store', 'PortfolioController@store')->name('portfolio-store');
-		Route::get('admin/portfolio/edit/{id}', 'PortfolioController@edit')->name('portfolio-edit');
-		Route::put('admin/portfolio/update/{id}', 'PortfolioController@update')->name('portfolio-update');
-		Route::get('admin/portfolio/destroy/{id}', 'PortfolioController@destroy')->name('portfolio-destroy');
-		Route::get('admin/portfolio/translate/{id}', 'PortfolioController@translate')->name('portfolio-translate');
-		Route::get('admin/portfolio/categories', 'PortfolioController@categories')->name('portfolio-categories');
+		// resourceController
+		Route::get('admin/resource', 'resourceController@index')->name('resource-index');
+		Route::get('admin/resource/create', 'resourceController@create')->name('resource-create');
+		Route::post('admin/resource/store', 'resourceController@store')->name('resource-store');
+		Route::get('admin/resource/edit/{id}', 'resourceController@edit')->name('resource-edit');
+		Route::put('admin/resource/update/{id}', 'resourceController@update')->name('resource-update');
+		Route::get('admin/resource/destroy/{id}', 'resourceController@destroy')->name('resource-destroy');
+		Route::get('admin/resource/translate/{id}', 'resourceController@translate')->name('resource-translate');
+		Route::get('admin/resource/categories', 'resourceController@categories')->name('resource-categories');
+
+
+        // fileController
+        Route::get('admin/file', 'FileController@index')->name('file-index');
+        Route::get('admin/file/create', 'FileController@create')->name('file-create');
+        Route::post('admin/file/store', 'FileController@store')->name('file-store');
+        Route::get('admin/file/edit/{id}', 'FileController@edit')->name('file-edit');
+        Route::put('admin/file/update/{id}', 'FileController@update')->name('file-update');
+        Route::get('admin/file/destroy/{id}', 'FileController@destroy')->name('file-destroy');
+        Route::get('admin/file/translate/{id}', 'FileController@translate')->name('file-translate');
+        Route::get('admin/file/categories', 'FileController@categories')->name('file-categories');
 
 		// ReviewController
 		Route::get('admin/reviews', 'ReviewController@index')->name('reviews-index');
@@ -125,6 +136,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::put('admin/reviews/update/{id}', 'ReviewController@update')->name('review-update');
 		Route::get('admin/reviews/destroy/{id}', 'ReviewController@destroy')->name('review-destroy');
 		Route::get('admin/reviews/translate/{id}', 'ReviewController@translate')->name('review-translate');
+
+		// ServiceController
+		Route::get('admin/services', 'ServiceController@index')->name('service-index');
+		Route::get('admin/services/create', 'ServiceController@create')->name('service-create');
+		Route::post('admin/services/store', 'ServiceController@store')->name('service-store');
+		Route::get('admin/services/edit/{id}', 'ServiceController@edit')->name('service-edit');
+		Route::put('admin/services/update/{id}', 'ServiceController@update')->name('service-update');
+		Route::get('admin/services/destroy/{id}', 'ServiceController@destroy')->name('service-destroy');
+		Route::get('admin/services/translate/{id}', 'ServiceController@translate')->name('service-translate');
 
 		// FeedProductController
 		Route::get('admin/feed-product', 'FeedProductController@index')->name('feed-product-index');

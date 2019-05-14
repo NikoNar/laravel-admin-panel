@@ -40,6 +40,7 @@ class CategoriesController extends Controller
 	*/
 	public function create($type, Category $model)
 	{
+
 		$categories = $model->where('type', $type)->where('parent_id', '<=', 0)->orderBy('order', 'DESC')->get();
 		$returnHTML =  view('admin-panel::category.create_edit', [
 			'categories' => $categories,
@@ -56,8 +57,9 @@ class CategoriesController extends Controller
 	*/
 	public function store( Request $request, Category $category )
 	{
-		$request['slug'] = getUniqueSlug($category, $request['title']);
-		$category->create($request->all());
+	    $request['slug'] = getUniqueSlug($category, $request['title_en']);
+//        dd( $request->all());
+        $category->create($request->all());
 		return redirect()->back()->with('success', 'Category successfully created.');
 	}
 
@@ -99,7 +101,7 @@ class CategoriesController extends Controller
 	*/
 	public function update($id, Request $request, Category $category)
 	{
-		$request['slug'] = getUniqueSlug($category, $request['title_eng'], $id);
+		$request['slug'] = getUniqueSlug($category, $request['title_en'], $id);
 		$category->find($id)->update($request->all());
 		return redirect()->back()->with('success', 'Category successfully updated.');
 	}

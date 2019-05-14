@@ -10,7 +10,7 @@ use Codeman\Admin\Models\Resource;
 use Codeman\Admin\Models\Category;
 use Illuminate\Support\Facades\Response;
 
-class ResourceController extends Controller
+class PortfolioController extends Controller
 {
 
     protected $model;

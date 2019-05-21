@@ -24,10 +24,10 @@ function readURL(input) {
     }
 }
 function bytesToSize(bytes) {
-   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-   if (bytes == 0) return '0 Byte';
-   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Byte';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 Object.size = function(obj) {
     var size = 0, key;
@@ -37,7 +37,7 @@ Object.size = function(obj) {
     return size;
 };
 $(document).ajaxStart(function () {
-  Pace.restart()
+    Pace.restart()
 })
 function allowDrop(ev) {
     ev.preventDefault();
@@ -57,7 +57,7 @@ function drop(ev) {
 function checkImageAvailability()
 {
     $('body').find("img").on('error', function () {
-      $(this).unbind("error").attr("src", "/admin-panel/images/no-image.jpg");
+        $(this).unbind("error").attr("src", "/admin-panel/images/no-image.jpg");
     });
 }
 function generateDataTable()
@@ -107,7 +107,7 @@ var fixHelperModified = function(e, tr) {
     var $helper = tr.clone();
     $helper.children().each(function(index)
     {
-      $(this).width($originals.eq(index).width())
+        $(this).width($originals.eq(index).width())
     });
     return $helper;
 };
@@ -147,21 +147,21 @@ function updateOrder(ids)
 }
 
 $(document).ready(function(){
-    
+
     $('select').select2();
     generateDataTable();
     checkImageAvailability();
     generateSortableDataTable();
 
     $("img").on('error', function () {
-      $(this).unbind("error").attr("src", "/admin-panel/images/no-image.jpg");
+        $(this).unbind("error").attr("src", "/admin-panel/images/no-image.jpg");
     });
     $.each($("img"), function(){
         if ($(this).attr('src') === "unknown" || $(this).attr('src') === "undefined" ||  $(this).attr('src') === "") {
             $(this).attr("src", "/admin-panel/images/no-image.jpg");
         }
     })
-    
+
     $('input#thumbnail').on('change', function(){
         console.log(readURL(this));
     });
@@ -185,6 +185,7 @@ $(document).ready(function(){
         e.preventDefault();
         var ckeditor = ($('#ck').data("editor") == 'ckeditor')? true : false;
         var isMultichoose = $(this).hasClass('multichoose');
+        var isPdf = $(this).hasClass('pdf');
         thumbnail_container = $(this).closest('.fileupload');
         resource_id = $(this).hasClass('featured-img-change') ? $(this).closest('tr').data('id') : 0;
         chnage_just_image = $(this).hasClass('img-change') ? $(this) : 0;
@@ -192,14 +193,15 @@ $(document).ready(function(){
             chnage_just_image = $(this).closest('.media-attach-bg');
         }
         film_director_img_tr = $(this).hasClass('film-director-img') ? $(this).closest('td') : 0;
-        
+
         $('#media-popup').remove();
         $.ajax({
             type: 'GET',
             url: app.ajax_url+ '/admin/media/popup',
             dataType: 'JSON',
             data: {'multichoose' : isMultichoose,
-                   'ckeditor' : ckeditor
+                'ckeditor' : ckeditor,
+                'pdf': isPdf
             },
             success: function(data){
                 var dropzoneCss = document.createElement("link");
@@ -210,7 +212,7 @@ $(document).ready(function(){
                 // $("body").append(dropzoneHelper);
                 $('body').append(data.html);
                 Dropzone.discover();
-              
+
                 $('#media-popup').modal('show');
 
             }
@@ -261,8 +263,8 @@ $(document).ready(function(){
         var fileSize  = bytesToSize(mediaItem.find('input[name="file_size"]').val());
         var fileType  = mediaItem.find('input[name="file_type"]').val();
         var dimensions  = mediaItem.find('input[name="width"]').val()+' x '+mediaItem.find('input[name="height"]').val();
-        
-        // var 
+
+        // var
         $('#file-info-modal').find('.full-image').attr('src', fullSizeUrl);
         $('#file-info-modal').find('.modal-title').text(filename);
 
@@ -299,7 +301,7 @@ $(document).ready(function(){
                 // var rep = JSON.parse(data);
                 if(rep.code == 200)
                 {
-                   image.remove();
+                    image.remove();
                     $('#file-info-modal').modal('hide');
 
                 }
@@ -333,10 +335,10 @@ $(document).ready(function(){
                 checkImageAvailability();
                 generateDataTable();
                 // if(data.success == true && typeof data.ids == 'object'){
-                    // for (var i = 0; i < data.ids.length; i++) {
-                        // dataTable.row( $('body').find('table tr[data-id="'+ data.ids[i] +'"]') ).remove().draw();
-                        // $('body').find('table tr[data-id="'+ data.ids[i] +'"]').fadeOut(400, function(){$(this).remove()});
-                    // }
+                // for (var i = 0; i < data.ids.length; i++) {
+                // dataTable.row( $('body').find('table tr[data-id="'+ data.ids[i] +'"]') ).remove().draw();
+                // $('body').find('table tr[data-id="'+ data.ids[i] +'"]').fadeOut(400, function(){$(this).remove()});
+                // }
                 // }
             }
         });
@@ -355,7 +357,7 @@ $(document).ready(function(){
         filterAjax($(this));
     });
 
-    
+
 
     $('body').off('keyup', '#media-search').on('keyup', '#media-search', function(e){
         e.preventDefault();
@@ -399,7 +401,7 @@ $(document).ready(function(){
             url: app.ajax_url+ '/admin/categories/create/'+type,
             dataType: 'JSON',
             success: function(data){
-                    console.log('stex');
+                console.log('stex');
                 if(data.success == true){
                     $('#category-add-edit').remove();
                     setTimeout(function(){
@@ -410,7 +412,7 @@ $(document).ready(function(){
             }
         });
     });
-    
+
     $('body').off('click', '.edit-category').on('click', '.edit-category', function(e){
         e.preventDefault();
         console.log('#edit-category click')
@@ -433,10 +435,10 @@ $(document).ready(function(){
     });
 
     $('body').off('click', '.confirm-del').on('click', '.confirm-del', function(e){
-        if (!confirm("Are you sure?")) {                               
-                e.preventDefault();
-            }
-    }); 
+        if (!confirm("Are you sure?")) {
+            e.preventDefault();
+        }
+    });
 });
 function filterAjax($this)
 {
@@ -480,19 +482,19 @@ function checkAll(source) {
 
 $(function() {
     if($('div').is('#submit-fixed')){
-        var $sidebar   = $("#submit-fixed"), 
+        var $sidebar   = $("#submit-fixed"),
             $window    = $(window),
             offset     = $sidebar.offset(),
             topPadding = 0;
 
         var sidebarPossitions = document.getElementById('submit-fixed').getBoundingClientRect();
         // console.log(sidebarPossitions.top, sidebarPossitions.right, sidebarPossitions.bottom, sidebarPossitions.left);
-        
+
         var mainContainer = document.getElementById('main-container').getBoundingClientRect();
         // console.log(mainContainer.top, mainContainer.right, mainContainer.bottom, mainContainer.left);
-        // var start = 
-        
-        
+        // var start =
+
+
         // console.log($window.scrollTop());
         // console.log(offset.top);
         // console.log($window.scrollTop() - offset.top)
@@ -527,14 +529,14 @@ $(function() {
         container.find('.file_name').val('');
         container.find('.file_name_text').html('');
     });
-    
+
     $('body').on('change', '.video_url_preview', function(){
 
         var videobox = document.getElementById('video-preview');
         if($(this).val() === "") {
             videobox.style.display = "none";
         }else{
-            var url = $(this).val(); 
+            var url = $(this).val();
             var ifrm = document.createElement('iframe');
             ifrm.src = (!url.includes('vimeo')) ? "//www.youtube.com/embed/"+ url.split("=")[1] : "//player.vimeo.com/video/"+ url.split("/")[3];
             ifrm.width= "100%";
@@ -547,7 +549,7 @@ $(function() {
     });
 
 
-     
+
     // $sidebar.css({
     //     'position':'fixed',
     //     'width': $sidebar.width(),
@@ -567,5 +569,5 @@ $(function() {
     //     $(this).closest('.row').delete();
     // });
 
-    
+
 });

@@ -59,7 +59,7 @@ class PageService implements PageInterface
 	* @return Response
 	*/
 	public function update( $id, $inputs )
-	{		
+	{
 		return $this->getById($id)->update($this->updateInputs($id, $inputs ));
 	}
 
@@ -88,16 +88,55 @@ class PageService implements PageInterface
 		}
 	}
 
-	public function createOrEditTranslation( $id )
+	public function createOrEditTranslation( $id, $lang )
 	{
-		if(null != $parent_lang = $this->page->where('parent_lang_id', $id)->first()){
-			// $news_date = date('m/d/Y' ,strtotime($parent_lang->created_at));
-			// $news_time = date('g:i A' ,strtotime($parent_lang->created_at));
-			// $parent_lang->published_date = $news_date;
-			// $parent_lang->published_time = $news_time;
-			return $parent_lang;
-		}
-		return $this->page->find($id);
+//	    dd($id, $lang, 'createoredit');
+//		if(null != $parent_lang = $this->page->where('parent_lang_id', $id)->first()){
+//		    if($parent_lang->language_id == $lang){
+//                return $parent_lang;
+//            }
+//			// $news_date = date('m/d/Y' ,strtotime($parent_lang->created_at));
+//			// $news_time = date('g:i A' ,strtotime($parent_lang->created_at));
+//			// $parent_lang->published_date = $news_date;
+//			// $parent_lang->published_time = $news_time;
+//		}
+//		$page =  $this->page->find($id);
+//		$page['language_id'] = $lang;
+//		return $page;
+
+
+        $page = $this->page->where(['id' => $id, 'language_id' => $lang])->orWhere(['id' => $id])->first();
+
+        if(!$page){
+            return ['status' => 'redirect', 'route' => route('page-create', $lang) ];
+        }
+
+        if($page->language_id != $lang && isset($page->parent_lang_id)){
+
+            $parent_page = $this->page->where(['id' => $page->parent_lang_id, 'language_id' => $lang])->first();
+
+            if($parent_page){
+                return ['status' => 'redirect', 'route' => route('page-edit', $parent_page->id)];
+            }else if(null != $trans_page = $this->page->where(['parent_lang_id' => $page->parent_lang_id, 'language_id' => $lang])->first()){
+                return ['status' => 'redirect', 'route' => route('page-edit', $trans_page->id)];
+            }else{
+                $trans_page = $this->page->where('id', $page->parent_lang_id)->first();
+                $trans_page['language_id'] = $lang;
+                return $trans_page;
+            }
+
+            
+        } else if($page->language_id != $lang && !isset($page->parent_lang_id)) {
+            $parent_page = $this->page->where(['parent_lang_id' => $page->id, 'language_id' => $lang])->first();
+            if($parent_page ){
+                return ['status' => 'redirect', 'route' => route('page-edit', $parent_page->id)];
+            }
+            $page['language_id'] = $lang;
+            return $page;
+        }else{
+            $page['language_id'] = $lang;
+            return $page;
+        }
 	}
 
 	/**

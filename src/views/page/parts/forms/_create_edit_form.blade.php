@@ -1,3 +1,4 @@
+
 @if(isset($page)  && !isset($parent_lang_id))
 	{!! Form::model($page, ['route' => ['page-update', $page->id], 'method' => 'PUT', 'enctype' => "multipart/form-data"]) !!}
 	{!! Form::hidden('id', $page->id) !!}
@@ -100,14 +101,17 @@
 		{!! Form::select('status', ['published' => 'Published', 'unpublished' => 'Unpublished', 'draft' => 'Draft'], null, ['class' => 'form-control select2']); !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('lang', 'Language'); !!}
-		@if(isset($parent_lang_id) || (isset($page) && $page->lang == 'arm'))
-			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}
-		@else
-			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}
-			
+		@if(isset($languages) && !empty($languages))
+		{!! Form::label('language_id', 'Language'); !!}
+{{--		@if(isset($parent_lang_id) || (isset($page) && $page->lang == 'arm'))--}}
+{{--			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
+{{--		@else--}}
+{{--			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
+{{--			--}}
+{{--		@endif--}}
+
+		{!! Form::select('language_id', $languages, isset($language_id) ? $language_id : null, ['class' => 'form-control select2 languages']); !!}
 		@endif
-	</div>
 	<div class="form-group">
 		{!! Form::label('template', 'Page Template'); !!}
 		{!! Form::select('template', [

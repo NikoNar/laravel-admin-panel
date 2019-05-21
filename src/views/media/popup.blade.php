@@ -91,7 +91,12 @@
 												<input type="hidden" name="file_size" value="{!! $image->file_size !!}">
 												<input type="hidden" name="file_type" value="{!! $image->file_type !!}">
 												@if(!is_url($image->filename))
-													<input type="hidden" name="full-size-url" value="{!! url('/media/full_size').'/'.$image->filename !!}">
+													@if(isset($pdf) && $pdf == 'pdf' )
+														<input type="hidden" name="full-size-url" value="{!! url('/media/otherfiles').'/'.$image->filename !!}">
+													@else
+														<input type="hidden" name="full-size-url" value="{!! url('/media/full_size').'/'.$image->filename !!}">
+													@endif
+
 												@else
 													<input type="hidden" name="full-size-url" value="{!! $image->filename !!}">
 												@endif

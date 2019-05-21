@@ -1,6 +1,6 @@
 <?php
 
-namespace Codeman\Admin\Http\Controllers;
+namespace Codeman\Admin\Http\Controllers\Front;
 
 use Codeman\Admin\Http\Requests\ContactUsRequest;
 use Codeman\Admin\Http\Requests\ApplicationRequest;
@@ -9,6 +9,7 @@ use Codeman\Admin\Mail\ApplicationMail;
 use Codeman\Admin\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 
 
 class FrontController extends Controller

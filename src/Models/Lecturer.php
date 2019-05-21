@@ -7,18 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Lecturer extends Model
 {
     protected $fillable = [
-    	'lang', 
-        'parent_lang_id',
-        'title',
-        'position',
-        'thumbnail',
-        'content',
-        'order', 
-        'slug'          
+    	'name',
+        'code',
+        'flag'
     ];
 
-    public function categories()
+    public function pages()
     {
-        return $this->morphToMany('Codeman\Admin\Models\Category', 'categorisable');
+        return $this->hasMany('Codeman\Admin\Models\Page');
     }
 }

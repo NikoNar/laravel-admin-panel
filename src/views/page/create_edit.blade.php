@@ -11,18 +11,21 @@
 	    	@if(!isset($page))
 	        	<h3 class="box-title">Create New Page</h3>
 	        @else
+				<input type="hidden"  id="page_id" value="{{$page->id}}">
 				<h3 class="box-title">Edit Page</h3>
 				<a href="{{ route('page-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
-				@if(isset($parent_lang_id) || isset($page) && $page->lang == 'arm')
-					@if(isset($parent_lang_id))
-						<a href="{{ route('page-edit', [$parent_lang_id]) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-					@else
-						<a href="{{ route('page-edit', $page->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-					@endif
-				@else
-					<a href="{{ route('page-translate',$page->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>
-				@endif
-	        @endif
+{{--				@if(isset($parent_lang_id) || isset($page) && $page->lang == 'arm')--}}
+{{--					@if(isset($parent_lang_id))--}}
+{{--						<a href="{{ route('page-edit', [$parent_lang_id]) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--					@else--}}
+{{--						<a href="{{ route('page-edit', $page->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--					@endif--}}
+{{--				@else--}}
+{{--					<a href="{{ route('page-translate',$page->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>--}}
+{{--				@endif--}}
+
+				<a href="{{ route('page-translate', [$page->id, $page->language_id]) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate</a>
+			@endif
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::page.parts.forms._create_edit_form')
@@ -93,7 +96,7 @@
 
 	  	$('body').off('change', '#template').on('change', '#template', function(e){
 	  		e.preventDefault();
-	  		var conf = confirm('By chnaging the page template you data will be lost. Are you sure you want to chnage it?');
+	  		var conf = confirm('By chnaging the page template your data will be lost. Are you sure you want to chnage it?');
 	  		if(conf == true){
 	  			window.location.href = app.ajax_url+window.location.pathname+'?template='+this.value
 	  		}
@@ -119,6 +122,16 @@
 		  // 		});
 		  // 	});
 	  	// }
+
+		$('body').off('change', '.languages').on('change', '.languages', function(e){
+			if(!confirm("translate? All not saved data will be lost!")){
+				e.preventDefault();
+			} else {
+				let lang = $('.languages').val();
+				let id = $('#page_id').val();
+				window.location.href='/admin/pages/translate/'+id+'/'+lang;
+			}
+		});
 	  </script>
 	  <!-- <script src="{{ asset('admin-panel/content-builder/content-builder.js') }}"></script> -->
 @endsection()

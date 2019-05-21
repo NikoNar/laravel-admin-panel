@@ -58,7 +58,7 @@ class FileController extends Controller
      */
     public function store(FileRequest $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $file =  $this->CRUD->store($request->all());
         if(!empty($request->category_id)){
             foreach($request->category_id as $key=>$id){
@@ -102,7 +102,7 @@ class FileController extends Controller
      */
     public function update(FileRequest $request,  $id)
     {
-
+//        dd($request->all());
         $this->CRUD->update($id, $request->all());
         File::find($id)->categories()->sync($request->category_id);
         return redirect()->route('file-edit', $id)->with('success', 'File Successfully Updated.');

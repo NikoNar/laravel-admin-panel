@@ -91,7 +91,7 @@ class CRUDService implements CrudInterface
 	* @return Response
 	*/
 	public function update( $id, $inputs )
-	{		
+	{
 		return $this->getById($id)->update($inputs);
 	}
 

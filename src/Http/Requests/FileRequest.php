@@ -27,7 +27,8 @@ class FileRequest extends FormRequest
         return [
             'title' => 'required|string',
             'year' => 'required|string',
-            'file' =>  'required|mimes:pdf'
+            'category_id' => 'required'
+//            'file' =>  'required|mimes:pdf|max:10000'
         ];
     }
 }

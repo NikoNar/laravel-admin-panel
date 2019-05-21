@@ -8,7 +8,7 @@ use Codeman\Admin\Http\Controllers\Controller;
 use Codeman\Admin\Services\CRUDService;
 use Codeman\Admin\Interfaces\PageInterface;
 use Codeman\Admin\Models\Page;
-use Codeman\Admin\Models\Lecturer;
+use Codeman\Admin\Models\Language;
 use Illuminate\Support\Facades\Response;
 
 // use Settings;
@@ -44,37 +44,32 @@ class PagesController extends Controller
 	*
 	* @return Response
 	*/
-	public function create(PageInterface $pageInterface)
+	public function create($lang = null, PageInterface $pageInterface)
 	{
 
 		$template = null;
+        $languages = Language::pluck('name','id')->toArray();
 
-		if(request()->has('template')){
+        if(request()->has('template')){
 			$template = request()->get('template');
 		}
 		
 		if($template){
-			if($template == "graphic" || $template == "interior"){
-				$lecturers = Lecturer::pluck('title','id');
-				// dd($lecturers);
-				return view('admin-panel::page.create_edit', [
-    			'template' 	=> $template,
-    			'parents' 	=> $pageInterface->getAllPagesTitlesArray(),
-    			'order' 	=> $pageInterface->getMaxOrderNumber(),
-    			'lecturers' => $lecturers
-    		]);
-			}
     		return view('admin-panel::page.create_edit', [
     			'template' 	=> $template,
     			'parents' 	=> $pageInterface->getAllPagesTitlesArray(),
-    			'order' 	=> $pageInterface->getMaxOrderNumber()			
+    			'order' 	=> $pageInterface->getMaxOrderNumber(),
+                'languages' => $languages,
+                'language_id' => $lang
     		]);
 
 		}else{
     		return view('admin-panel::page.create_edit', [
     			'parents' => $pageInterface->getAllPagesTitlesArray(),
     			'order' => $pageInterface->getMaxOrderNumber(),
-    		]);
+                'languages' => $languages,
+                'language_id' => $lang
+            ]);
 		}
 	}
 
@@ -85,14 +80,13 @@ class PagesController extends Controller
 	*/
 	public function store(PageRequest $request, PageInterface $pageInterface )
 	{
-		// dd($request->all());
 		// $this->authorize('create', $this->model);
 
 
+        $inputs = $pageInterface->getMaxOrderNumber($request->all());
+//        dd('store');
 
-		$inputs = $pageInterface->getMaxOrderNumber($request->all());
-		
-		if(null != $page = $this->CRUD->store($inputs)){
+        if(null != $page = $this->CRUD->store($inputs)){
 			if($request->has('meta'))
 			{
 				$pageInterface->createUpdateMeta($page->id, $request->get('meta'));
@@ -114,13 +108,19 @@ class PagesController extends Controller
 	* @param  int  $id
 	* @return Response
 	*/
-	public function translate($id, PageInterface $pageInterface)
+	public function translate($id, $lang, PageInterface $pageInterface)
 	{
 		$template = null;
+        $languages = Language::pluck('name','id')->toArray();
 		if(request()->has('template')){
 			$template = request()->get('template');
 		}
-		$translate = $pageInterface->createOrEditTranslation($id);
+		$translate = $pageInterface->createOrEditTranslation($id, $lang);
+
+		if(isset($translate['status']) && $translate['status'] == 'redirect'){
+		    return redirect($translate['route']);
+        }
+
 		if(isset($translate) && $translate->parent_lang_id != null) {
 	    	$parent_lang_id = null;
 		}else {
@@ -156,6 +156,7 @@ class PagesController extends Controller
     			'parents' => $pageInterface->getAllPagesTitlesArray(),
     			'template' 	=> $template,
     			'parent_lang_id' => $parent_lang_id,
+                'languages' => $languages
     		]);
 		}
 	}
@@ -168,8 +169,10 @@ class PagesController extends Controller
 	*/
 	public function edit($id, PageInterface $pageInterface)
 	{
+
 		$template = null;
 		$page = $pageInterface->getById($id);
+        $languages = Language::pluck('name','id')->toArray();
 		
 		if($page->template != null){
 			$template = $page->template;
@@ -193,28 +196,14 @@ class PagesController extends Controller
 	
 		$page->setAttribute('meta', $pagemetas);
 		if($template){
-
-			if($template == "graphic" || $template == "interior"){
-				$selected = json_decode($page->lecturers);
-				// dd($lecturersIds);
-				$lecturers = Lecturer::pluck('title', 'id')->toArray();
-				// dd($lecturers);
-				return view('admin-panel::page.create_edit', [
-    			'template' 	=> $template,
-    			'page' => $page,
-    			'parents' => $pageInterface->getAllPagesTitlesArray($id),
-    			'lecturers' => $lecturers,
-    			'selected'=> $selected
-    		]);
-			}
-
     		return view('admin-panel::page.create_edit', [
     			'template' 	=> $template,
     			'page' => $page,
     			'parents' => $pageInterface->getAllPagesTitlesArray($id),
+                'languages' => $languages
     		]);
 		}else{
-    		return view('admin-panel::page.create_edit', ['page' => $page, 'parents' => $pageInterface->getAllPagesTitlesArray($id)]);
+    		return view('admin-panel::page.create_edit', ['page' => $page, 'parents' => $pageInterface->getAllPagesTitlesArray($id),'languages' => $languages]);
 		}
 	}
 
@@ -229,8 +218,8 @@ class PagesController extends Controller
 		// $this_page = $pageInterface->getById($id);
 		// $this->authorize('update', $this->model);
 		// dd(request()->all());
-		
-		// dd($request->all()); 
+
+//        dd('update');
 		
 		if(null != $page = $pageInterface->update($id, $request->all())){
 			if($request->has('meta'))

@@ -89,12 +89,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 		// PagesController
 		Route::get('admin/pages', 'PagesController@index')->name('page-index');
-		Route::get('admin/pages/create', 'PagesController@create')->name('page-create');
+		Route::get('admin/pages/create/{lang?}', 'PagesController@create')->name('page-create');
 		Route::post('admin/pages/store', 'PagesController@store')->name('page-store');
 		Route::get('admin/pages/edit/{id}', 'PagesController@edit')->name('page-edit');
 		Route::put('admin/pages/update/{id}', 'PagesController@update')->name('page-update');
 		Route::get('admin/pages/destroy/{id}', 'PagesController@destroy')->name('page-destroy');
-		Route::get('admin/pages/translate/{id}', 'PagesController@translate')->name('page-translate');
+		Route::get('admin/pages/translate/{id}/{lang}', 'PagesController@translate')->name('page-translate');
 
 		// ProgramController
 		Route::get('admin/programs', 'ProgramController@index')->name('program-index');

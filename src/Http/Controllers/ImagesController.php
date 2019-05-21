@@ -45,13 +45,19 @@ class ImagesController extends Controller
                ->groupby('year','month')
                ->get();
         $ckeditor = (request()->has('ckeditor') && request()->get('ckeditor') != 'false')? true : false;
+        $pdf = (request()->has('pdf') && request()->get('pdf') != 'false')? true : false;
         $multichoose = request()->has('multichoose') && request()->get('multichoose') === 'true' ? 1 : null;
         // $resource_id = request()->has('resource_id') && request()->get('resource_id') != 0 ? request()->get('resource_id') : 0;
+        if($pdf){
+            $images = Image::where('filename', 'LIKE', '%.pdf')->orderBy('created_at', 'DESC')->paginate(20);
+        } else {
+            $images = Image::orderBy('created_at', 'DESC')->paginate(20);
+        }
         $returnHTML =  view('admin-panel::media.popup', [
-          'images' => Image::orderBy('created_at', 'DESC')->paginate(20),
+          'images' => $images,
           'dates' => $dates,
           'multichoose' => $multichoose,
-            'ckeditor'=>$ckeditor ]);
+          'pdf' => $pdf, 'ckeditor'=>$ckeditor ]);
         if(request()->has('json') && (request()->get('json') == 0 || request()->get('json') == '0')){
             return $returnHTML;
         }

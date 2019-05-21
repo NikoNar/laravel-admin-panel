@@ -28,7 +28,7 @@
 {{--                @endif--}}
 {{--            </div>--}}
             <div>
-		    	<span class="btn btn-file btn-primary btn-flat col-md-3 media-open">
+		    	<span class="btn btn-file btn-primary btn-flat col-md-3 media-open pdf">
 		    		<span class="fileupload-new">Select File</span>
 					{{-- {!! Form::file('thumbnail', null, ['class' => 'form-control']); !!} --}}
 {{--                    {!! Form::hidden('file', null, ['id' => 'thumbnail']); !!}--}}

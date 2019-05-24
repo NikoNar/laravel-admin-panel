@@ -24,7 +24,7 @@
 {{--					<a href="{{ route('page-translate',$page->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>--}}
 {{--				@endif--}}
 
-				<a href="{{ route('page-translate', [$page->id, $page->language_id]) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate</a>
+{{--				<a href="{{ route('page-translate', [$page->id, $page->language_id]) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate</a>--}}
 			@endif
 	    </div>
 	    <div class="box-body">
@@ -123,15 +123,7 @@
 		  // 	});
 	  	// }
 
-		$('body').off('change', '.languages').on('change', '.languages', function(e){
-			if(!confirm("translate? All not saved data will be lost!")){
-				e.preventDefault();
-			} else {
-				let lang = $('.languages').val();
-				let id = $('#page_id').val();
-				window.location.href='/admin/pages/translate/'+id+'/'+lang;
-			}
-		});
+		
 	  </script>
 	  <!-- <script src="{{ asset('admin-panel/content-builder/content-builder.js') }}"></script> -->
 @endsection()

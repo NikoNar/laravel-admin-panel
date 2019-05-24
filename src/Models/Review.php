@@ -14,6 +14,11 @@ class Review extends Model
         'thumbnail',
         'content',
         'order', 
-        'slug'          
+        'slug',
+        'language_id'
     ];
+    public function language()
+    {
+        return $this->belongsTo('Codeman\Admin\Models\Language');
+    }
 }

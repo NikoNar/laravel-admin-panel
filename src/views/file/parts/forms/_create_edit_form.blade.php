@@ -91,13 +91,22 @@
 		{!! Form::label('status', 'Status'); !!}
 		{!! Form::select('status', ['published' => 'Published', 'draft' => 'Draft'], null, ['class' => 'form-control select2']); !!}
 	</div>
-	<div class="form-group">
-		{!! Form::label('lang', 'Language'); !!}
-		@if(isset($parent_lang_id) || (isset($file) && $file->lang == 'arm'))
-			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}
-		@else
-			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}
+{{--	<div class="form-group">--}}
+{{--		{!! Form::label('lang', 'Language'); !!}--}}
+{{--		@if(isset($parent_lang_id) || (isset($file) && $file->lang == 'arm'))--}}
+{{--			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
+{{--		@else--}}
+{{--			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
 
+{{--		@endif--}}
+{{--	</div>--}}
+	<div class="form-group">
+		@if(isset($languages) && !empty($languages))
+			@if(isset($file) && !empty($file))
+				<input type="hidden" name="resource_id" value="{{$file->id}}">
+			@endif
+			{!! Form::label('language_id', 'Language'); !!}
+			{!! Form::select('language_id', $languages, isset($language_id) ? $language_id : null, ['class' => 'form-control select2 languages']); !!}
 		@endif
 	</div>
 	<div class="col-md-12 no-padding">

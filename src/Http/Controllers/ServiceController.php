@@ -2,6 +2,7 @@
 
 namespace Codeman\Admin\Http\Controllers;
 
+use Codeman\Admin\Models\Language;
 use Illuminate\Http\Request;
 use Codeman\Admin\Http\Requests\ServiceRequest;
 use Codeman\Admin\Services\CRUDService;
@@ -13,6 +14,7 @@ class ServiceController extends Controller
 {
 
     protected $model;
+    protected $languages;
     /**
        * Run constructor
        *
@@ -24,6 +26,7 @@ class ServiceController extends Controller
         // $this->middleware('admin');
         $this->CRUD = new CRUDService($model);
         $this->model = $model;
+        $this->languages = Language::orderBy('order')->pluck('name','id')->toArray();
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +35,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('admin-panel::service.index', ['services' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => true]);
+        return view('admin-panel::service.index', ['services' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => $this->languages]);
     }
 
     /**
@@ -44,6 +47,7 @@ class ServiceController extends Controller
     {
         return view('admin-panel::service.create', [
                 'order' => $this->CRUD->getMaxOrderNumber(),
+                'languages' => $this->languages
             ]);
     }
 
@@ -77,7 +81,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        return view('admin-panel::service.edit', [ 'service' => $this->CRUD->getById($id)]);
+        return view('admin-panel::service.edit', [ 'service' => $this->CRUD->getById($id),  'languages' => $this->languages,]);
     }
 
     /**
@@ -106,22 +110,27 @@ class ServiceController extends Controller
         }
     }
 
-     public function translate($id)
+     public function translate($id, $lang)
     {
-       
-        $translate = $this->CRUD->createOrEditTranslation($id);
+        $translate = $this->CRUD->createOrEditTranslation($id, $lang);
+        if(isset($translate['status']) && $translate['status'] == 'redirect'){
+            return redirect($translate['route']);
+        }
+
         if(isset($translate) && $translate->parent_lang_id != null) {
             $parent_lang_id = null;
         }else {
             $parent_lang_id = $translate->id;
         }
-       
+
+
         if($translate)
         {
             return view('admin-panel::service.edit', [
                 'service' => $translate,
                 'parent_lang_id' => $parent_lang_id,
                 'order' => $this->CRUD->getMaxOrderNumber(),
+                'languages' => $this->languages,
             ]);
         }
     }

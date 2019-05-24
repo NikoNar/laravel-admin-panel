@@ -26,13 +26,16 @@ class Language  {
     public function handle($request, Closure $next)
     {
         $segments = $request->segments();
-        $is_url_has_lang = $request->segment(1);
-        // $current_lang = \LaravelLocalization::getCurrentLocale();
+        $is_url_has_lang = $request->segment(2);
+        $current_lang = \App::getLocale();
         $current_lang = session()->get('lang');
+
+
         if($is_url_has_lang != 'arm' && $current_lang == 'arm')
         {
             return $this->redirector->to($current_lang.'/'.implode('/', $segments));
         }
+
         // dd($locale);
         // If the locale is added to to skip_locales array continue without locale
         // if (in_array($locale, $this->app->config->get('app.skip_locales'))) {

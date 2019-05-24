@@ -19,7 +19,7 @@
 
 	<td class="action">
 		<a href="{{ route("lecturer-edit", $item->id ) }}" title="Edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
-		<a href="{{ route("lecturer-translate", $item->id ) }}" title="Translate To Armenian" class="btn btn-xs btn-primary"><i class="fa fa-language"></i></a>
+{{--		<a href="{{ route("lecturer-translate", $item->id ) }}" title="Translate To Armenian" class="btn btn-xs btn-primary"><i class="fa fa-language"></i></a>--}}
 		<a href="{{ route("lecturer-destroy", $item->id ) }}" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 	</td>
 </tr>

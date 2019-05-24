@@ -17,6 +17,7 @@ class CreateLanguagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code');
+            $table->integer('order')->default(0);
             $table->text('flag')->nullable();
             $table->timestamps();
         });

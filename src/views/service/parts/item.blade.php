@@ -16,7 +16,7 @@
 
 	<td class="action">
 		<a href="{{ route('service-edit', $item->id ) }}" title="Edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
-		<a href="{{ route('service-translate', $item->id ) }}" title="Translate To Armenian" class="btn btn-xs btn-primary"><i class="fa fa-language"></i></a>
-		<a href="{{ route('service-destroy', $item->id ) }}" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+{{--		<a href="{{ route('service-translate', $item->id ) }}" title="Translate To Armenian" class="btn btn-xs btn-primary"><i class="fa fa-language"></i></a>--}}
+		<a href="{{ route('service-destroy', $item->id ) }}" title="Delete" class="btn btn-xs btn-danger confirm-del"><i class="fa fa-trash"></i></a>
 	</td>
 </tr>

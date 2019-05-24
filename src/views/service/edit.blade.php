@@ -24,15 +24,15 @@
 	        <h3 class="box-title">Edit Partner</h3>
 	       
 	        <a href="{{ route('service-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
-	        @if(isset($parent_lang_id) || isset($service) && $service->lang == 'arm')
-	        	@if(isset($parent_lang_id))
-	        		<a href="{{ route('service-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@else
-	        		<a href="{{ route('service-edit', $service->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@endif
-	        @else
-	        	<a href="{{ route('service-translate', $service->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>
-	        @endif
+{{--	        @if(isset($parent_lang_id) || isset($service) && $service->lang == 'arm')--}}
+{{--	        	@if(isset($parent_lang_id))--}}
+{{--	        		<a href="{{ route('service-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@else--}}
+{{--	        		<a href="{{ route('service-edit', $service->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@endif--}}
+{{--	        @else--}}
+{{--	        	<a href="{{ route('service-translate', $service->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>--}}
+{{--	        @endif--}}
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::service.parts.forms._create_edit_form')

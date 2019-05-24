@@ -20,10 +20,13 @@
     			<div class="input-group-addon input-group-blue">
             		<i class="fa fa-language"></i>
             	</div>
-            	<select name="language" id="language" class="form-control pull-left">
-            		<option value="en">English</option>
-            		<option value="arm">Armenia</option>
-            	</select>
+                @if(isset($languages) && !empty($languages))
+                    {!! Form::select('language_id', $languages, isset($language_id) ? $language_id : null, ['class' => 'form-control select2 languages', 'name'=>'language']); !!}
+                @endif
+{{--            	<select name="language" id="language" class="form-control pull-left">--}}
+{{--            		<option value="en">English</option>--}}
+{{--            		<option value="arm">Armenia</option>--}}
+{{--            	</select>--}}
     		</div>
     	</div>
     @endif()

@@ -103,7 +103,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/programs/edit/{id}', 'ProgramController@edit')->name('program-edit');
 		Route::put('admin/programs/update/{id}', 'ProgramController@update')->name('program-update');
 		Route::get('admin/programs/destroy/{id}', 'ProgramController@destroy')->name('program-destroy');
-		Route::get('admin/programs/translate/{id}', 'ProgramController@translate')->name('program-translate');
+		Route::get('admin/programs/translate/{id}/{lang}', 'ProgramController@translate')->name('program-translate');
 		Route::get('admin/programs/categories', 'ProgramController@categories')->name('program-categories');
 
 
@@ -114,7 +114,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/resource/edit/{id}', 'resourceController@edit')->name('resource-edit');
 		Route::put('admin/resource/update/{id}', 'resourceController@update')->name('resource-update');
 		Route::get('admin/resource/destroy/{id}', 'resourceController@destroy')->name('resource-destroy');
-		Route::get('admin/resource/translate/{id}', 'resourceController@translate')->name('resource-translate');
+		Route::get('admin/resource/translate/{id}/{lang}', 'resourceController@translate')->name('resource-translate');
 		Route::get('admin/resource/categories', 'resourceController@categories')->name('resource-categories');
 
 
@@ -125,7 +125,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('admin/file/edit/{id}', 'FileController@edit')->name('file-edit');
         Route::put('admin/file/update/{id}', 'FileController@update')->name('file-update');
         Route::get('admin/file/destroy/{id}', 'FileController@destroy')->name('file-destroy');
-        Route::get('admin/file/translate/{id}', 'FileController@translate')->name('file-translate');
+        Route::get('admin/file/translate/{id}/{lang}', 'FileController@translate')->name('file-translate');
         Route::get('admin/file/categories', 'FileController@categories')->name('file-categories');
 
 		// ReviewController
@@ -135,7 +135,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/reviews/edit/{id}', 'ReviewController@edit')->name('review-edit');
 		Route::put('admin/reviews/update/{id}', 'ReviewController@update')->name('review-update');
 		Route::get('admin/reviews/destroy/{id}', 'ReviewController@destroy')->name('review-destroy');
-		Route::get('admin/reviews/translate/{id}', 'ReviewController@translate')->name('review-translate');
+		Route::get('admin/reviews/translate/{id}/{lang}', 'ReviewController@translate')->name('review-translate');
 
 		// ServiceController
 		Route::get('admin/services', 'ServiceController@index')->name('service-index');
@@ -144,7 +144,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('admin/services/edit/{id}', 'ServiceController@edit')->name('service-edit');
 		Route::put('admin/services/update/{id}', 'ServiceController@update')->name('service-update');
 		Route::get('admin/services/destroy/{id}', 'ServiceController@destroy')->name('service-destroy');
-		Route::get('admin/services/translate/{id}', 'ServiceController@translate')->name('service-translate');
+		Route::get('admin/services/translate/{id}/{lang}', 'ServiceController@translate')->name('service-translate');
 
 		// FeedProductController
 		Route::get('admin/feed-product', 'FeedProductController@index')->name('feed-product-index');
@@ -218,10 +218,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('admin/lecturers/store', 'LecturerController@store')->name('lecturer-store');
 		// Route::get('almanac/{slug}', 'LecturerController@show')->name('lecturers-show');
 		Route::get('admin/lecturer/edit/{id}', 'LecturerController@edit')->name('lecturer-edit');
-		Route::put('admin/lecturers/update/{id}', 'LecturerController@update')->name('lecturer-update');
-		Route::get('admin/lecturers/translate/{id}', 'LecturerController@translate')->name('lecturer-translate');
-		Route::get('admin/lecturers/destroy/{id}', 'LecturerController@destroy')->name('lecturer-destroy');
-		Route::get('admin/lecturers/categories', 'LecturerController@categories')->name('lecturer-categories');
+		Route::put('admin/lecturer/update/{id}', 'LecturerController@update')->name('lecturer-update');
+		Route::get('admin/lecturer/translate/{id}/{lang}', 'LecturerController@translate')->name('lecturer-translate');
+		Route::get('admin/lecturer/destroy/{id}', 'LecturerController@destroy')->name('lecturer-destroy');
+		Route::get('admin/lecturer/categories', 'LecturerController@categories')->name('lecturer-categories');
 		
 
 		// Application Controller

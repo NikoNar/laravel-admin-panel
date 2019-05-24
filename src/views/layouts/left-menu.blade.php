@@ -42,24 +42,24 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview @if(Request::is('admin/programs*')) active @endif">
-                <a href="#">
-                    <i class="fas fa-book"></i>
-                    <span>Programs</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="@if(Request::is('admin/programs')) active @endif">
-                        <a href="{!! route('program-index') !!}">
-                            <i class="fa fa-circle-notch fz-12"></i> View All
-                        </a>
-                    </li>
-                    <li class="@if(Request::is('admin/programs/create')) active @endif">
-                        <a href="{!! route('program-create') !!}">
-                            <i class="fa fa-circle-notch fz-12"></i> Add New
-                        </a>
-                    </li>
-                </ul>
-            </li>
+{{--            <li class="treeview @if(Request::is('admin/programs*')) active @endif">--}}
+{{--                <a href="#">--}}
+{{--                    <i class="fas fa-book"></i>--}}
+{{--                    <span>Programs</span>--}}
+{{--                </a>--}}
+{{--                <ul class="treeview-menu">--}}
+{{--                    <li class="@if(Request::is('admin/programs')) active @endif">--}}
+{{--                        <a href="{!! route('program-index') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> View All--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="@if(Request::is('admin/programs/create')) active @endif">--}}
+{{--                        <a href="{!! route('program-create') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> Add New--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
             <li class="treeview @if(Request::is('admin/servisec*')) active @endif">
                 <a href="#">
                     <i class="fas fa-concierge-bell"></i>
@@ -185,29 +185,29 @@
                    
                </ul>
            </li>
-           <li class="treeview @if(Request::is('admin/users*')) active @endif">
-                <a href="#">
-                    <i class="fas fa-user"></i>
-                    <span>Users</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="@if(Request::is('admin/users')) active @endif">
-                        <a href="{!! route('user.index') !!}">
-                            <i class="fa fa-circle-notch fz-12"></i> View All
-                        </a>
-                    </li>
-                    <li class="@if(Request::is('admin/users/create')) active @endif">
-                        <a href="{!! route('user.create') !!}">
-                            <i class="fa fa-circle-notch fz-12"></i> Add New
-                        </a>
-                    </li>
-                    <li class="@if(Request::is('admin/users/roles')) active @endif">
-                        <a href="{!! route('roles.index') !!}">
-                            <i class="fa fa-user-tag"></i> Roles
-                        </a>
-                    </li>
-                </ul>  
-            </li>
+{{--           <li class="treeview @if(Request::is('admin/users*')) active @endif">--}}
+{{--                <a href="#">--}}
+{{--                    <i class="fas fa-user"></i>--}}
+{{--                    <span>Users</span>--}}
+{{--                </a>--}}
+{{--                <ul class="treeview-menu">--}}
+{{--                    <li class="@if(Request::is('admin/users')) active @endif">--}}
+{{--                        <a href="{!! route('user.index') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> View All--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="@if(Request::is('admin/users/create')) active @endif">--}}
+{{--                        <a href="{!! route('user.create') !!}">--}}
+{{--                            <i class="fa fa-circle-notch fz-12"></i> Add New--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="@if(Request::is('admin/users/roles')) active @endif">--}}
+{{--                        <a href="{!! route('roles.index') !!}">--}}
+{{--                            <i class="fa fa-user-tag"></i> Roles--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>  --}}
+{{--            </li>--}}
             <hr>
             <li class="treeview @if(Request::is('admin/media*')) active @endif">
                 <a href="#">
@@ -237,12 +237,12 @@
                     <i class="fa fa-cogs"></i>  <span>Settings</span> 
                 </a>
             </li>
-            <hr>
-            <li class="@if(Request::is('admin/applications*')) active @endif">
-                <a href="{!! route('applications-index') !!}">
-                    <i class="fa fa-address-card"></i><span>Applications</span>  
-                </a>
-            </li>
+{{--            <hr>--}}
+{{--            <li class="@if(Request::is('admin/applications*')) active @endif">--}}
+{{--                <a href="{!! route('applications-index') !!}">--}}
+{{--                    <i class="fa fa-address-card"></i><span>Applications</span>  --}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -24,15 +24,15 @@
 	        <h3 class="box-title">Edit Partner</h3>
 	       
 	        <a href="{{ route('file-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
-	        @if(isset($parent_lang_id) || isset($file) && $file->lang == 'arm')
-	        	@if(isset($parent_lang_id))
-	        		<a href="{{ route('file-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@else
-	        		<a href="{{ route('file-edit', $file->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@endif
-	        @else
-	        	<a href="{{ route('file-translate', $file->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>
-	        @endif
+{{--	        @if(isset($parent_lang_id) || isset($file) && $file->lang == 'arm')--}}
+{{--	        	@if(isset($parent_lang_id))--}}
+{{--	        		<a href="{{ route('file-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@else--}}
+{{--	        		<a href="{{ route('file-edit', $file->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@endif--}}
+{{--	        @else--}}
+{{--	        	<a href="{{ route('file-translate', $file->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>--}}
+{{--	        @endif--}}
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::file.parts.forms._create_edit_form')

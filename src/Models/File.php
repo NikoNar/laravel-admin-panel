@@ -14,11 +14,16 @@ class File extends Model
         'year',
         'type',
         'order',
-        'slug'
+        'slug',
+        'language_id'
     ];
 
     public function categories()
     {
         return $this->morphToMany('Codeman\Admin\Models\Category', 'categorisable');
+    }
+    public function language()
+    {
+        return $this->belongsTo('Codeman\Admin\Models\Language');
     }
 }

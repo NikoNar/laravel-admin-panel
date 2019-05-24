@@ -62,6 +62,7 @@ class Controller extends BaseController
 
     public function filterResource(Request $request)
     {
+
         $modelName = $request->has('model') ? $request->get('model') : null;
         $searchBy = $request->has('search_by') ? $request->get('search_by') : 'title';
         if($modelName)
@@ -79,7 +80,7 @@ class Controller extends BaseController
             }
             if(request()->has('language') && request()->get('language') != null)
             {
-                $result->where('lang',request()->get('language'));
+                $result->where('language_id',request()->get('language'));
             }
             if(request()->has('brand_name') && request()->get('brand_name') != null)
             {

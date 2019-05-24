@@ -43,6 +43,20 @@
 					    	</div>
 				    	</div>
 
+						<div class="col-md-3 no-padding-left" style="height: 34px; line-height: 34px;">
+							{{ Form::label('default_lang', 'Default Language:') }}
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<div class="input-group">
+								    <span class="input-group-addon">
+								        <span class="fa fa-user"></span>
+								    </span>
+									{{ Form::select('default_lang', $languages, isset($selected) && $selected != null ? $selected : null) }}
+								</div>
+							</div>
+						</div>
+
 					</div>
 					
 					<div class="col-md-12">

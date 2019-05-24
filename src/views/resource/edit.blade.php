@@ -24,15 +24,15 @@
 	        <h3 class="box-title">Edit Partner</h3>
 	       
 	        <a href="{{ route('resource-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
-	        @if(isset($parent_lang_id) || isset($resource) && $resource->lang == 'arm')
-	        	@if(isset($parent_lang_id))
-	        		<a href="{{ route('resource-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@else
-	        		<a href="{{ route('resource-edit', $resource->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>
-	        	@endif
-	        @else
-	        	<a href="{{ route('resource-translate', $resource->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>
-	        @endif
+{{--	        @if(isset($parent_lang_id) || isset($resource) && $resource->lang == 'arm')--}}
+{{--	        	@if(isset($parent_lang_id))--}}
+{{--	        		<a href="{{ route('resource-edit', $parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@else--}}
+{{--	        		<a href="{{ route('resource-edit', $resource->parent_lang_id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to English</a>--}}
+{{--	        	@endif--}}
+{{--	        @else--}}
+{{--	        	<a href="{{ route('resource-translate', $resource->id) }}" class="btn btn-warning btn-flat pull-right margin-right-15"><i class="fa fa-edit"></i> Translate to Armenian</a>--}}
+{{--	        @endif--}}
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::resource.parts.forms._create_edit_form')

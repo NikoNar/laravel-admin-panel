@@ -2,6 +2,7 @@
 
 namespace Codeman\Admin\Http\Controllers;
 
+use Codeman\Admin\Models\Language;
 use Illuminate\Http\Request;
 use Codeman\Admin\Models\Setting;
 use Codeman\Admin\Models\Page;
@@ -30,6 +31,8 @@ class SettingsController extends Controller
     {
         $settings = $this->settings->pluck('value', 'key');
         $pages = Page::where('lang', 'en')->pluck('title','id');
+        $languages = Language::pluck('name', 'id');
+//        dd($settings);
 
         foreach ($settings as $key => $value) {
 
@@ -38,7 +41,7 @@ class SettingsController extends Controller
             }
         }
 
-        return view('admin-panel::setting.index', ['settings' => $settings, 'pages'=> $pages ]);
+        return view('admin-panel::setting.index', ['settings' => $settings, 'pages'=> $pages, 'languages'=> $languages ]);
     }
 
     /**
@@ -48,10 +51,23 @@ class SettingsController extends Controller
      */
     public function createOrUpdate(Request $request)
     {
+//        dd();
         if($request->site_name == null){
             $request['site_name']  = env('APP_NAME');
         }
-//        dd($request->all(),env('APP_NAME'));
+        if($request->has('default_lang')){
+            config(['app.locale' => 'en']);
+            $min = 0;
+            Language::where('id', $request->default_lang)
+                ->update(['order' => $min]);
+            $others = Language::where('id', '!=', $request->default_lang)->get();
+            $min++;
+            foreach($others as $lang){
+                $lang->update(['order' => $min]);
+                $min++;
+            }
+
+        }
 
         // $index = $request->home_page;
         if($request->has('_token')){

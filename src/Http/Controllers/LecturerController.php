@@ -2,6 +2,7 @@
 
 namespace Codeman\Admin\Http\Controllers;
 
+use Codeman\Admin\Models\Language;
 use Illuminate\Http\Request;
 use Codeman\Admin\Http\Requests\LecturerRequest;
 use Codeman\Admin\Services\CRUDService;
@@ -14,6 +15,7 @@ class LecturerController extends Controller
 {
 
     protected $model;
+    protected $languages;
     /**
        * Run constructor
        *
@@ -25,6 +27,7 @@ class LecturerController extends Controller
         // $this->middleware('admin');
         $this->CRUD = new CRUDService($model);
         $this->model = $model;
+        $this->languages = Language::orderBy('order')->pluck('name','id')->toArray();
     }
 
     /**
@@ -34,7 +37,7 @@ class LecturerController extends Controller
      */
     public function index()
     {
-        return view('admin-panel::lecturer.index', ['lecturers' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => true]);
+        return view('admin-panel::lecturer.index', ['lecturers' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => $this->languages]);
     }
 
     /**
@@ -46,7 +49,8 @@ class LecturerController extends Controller
     {
         return view('admin-panel::lecturer.create', [
                 'order' => $this->CRUD->getMaxOrderNumber(),
-                'categories' => Category::where('type', 'lecturer')->get()
+                'categories' => Category::where('type', 'lecturer')->get(),
+                'languages' => $this->languages
             ]);
     }
 
@@ -89,7 +93,8 @@ class LecturerController extends Controller
         // dd(Category::select('title_en as title', 'id', 'type', 'slug')->where('type', 'lecturer')->get());
         return view('admin-panel::lecturer.edit', [ 
             'lecturer' => $this->CRUD->getById($id),
-            'categories' => Category::select('title_en as title', 'id', 'type', 'slug')->where('type', 'lecturer')->get()
+            'categories' => Category::select('title_en as title', 'id', 'type', 'slug')->where('type', 'lecturer')->get(),
+            'languages' => $this->languages
         ]);
     }
 
@@ -129,16 +134,19 @@ class LecturerController extends Controller
 
 
 
-    public function translate($id)
+    public function translate($id, $lang)
     {
-       
-        $translate = $this->CRUD->createOrEditTranslation($id);
+        $translate = $this->CRUD->createOrEditTranslation($id, $lang);
+        if(isset($translate['status']) && $translate['status'] == 'redirect'){
+            return redirect($translate['route']);
+        }
+
         if(isset($translate) && $translate->parent_lang_id != null) {
             $parent_lang_id = null;
         }else {
             $parent_lang_id = $translate->id;
         }
-        // dd($parent_lang_id);
+
         if($translate)
         {
             return view('admin-panel::lecturer.edit', [
@@ -146,6 +154,7 @@ class LecturerController extends Controller
                 'parent_lang_id' => $parent_lang_id,
                 'categories' => Category::select('title_en as title', 'id', 'type', 'slug')->where('type', 'lecturer')->get(),
                 'order' => $this->CRUD->getMaxOrderNumber(),
+                'languages' => $this->languages,
             ]);
         }
     }

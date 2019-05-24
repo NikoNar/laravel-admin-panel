@@ -18,6 +18,11 @@ class Program extends Model
         'duration',          
         'frequency',          
         'price',          
-        'slug'          
+        'slug',
+        'language_id'
     ];
+    public function language()
+    {
+        return $this->belongsTo('Codeman\Admin\Models\Language');
+    }
 }

@@ -100,8 +100,11 @@
 		{!! Form::label('status', 'Status'); !!}
 		{!! Form::select('status', ['published' => 'Published', 'unpublished' => 'Unpublished', 'draft' => 'Draft'], null, ['class' => 'form-control select2']); !!}
 	</div>
-	<div class="form-group">
+	<div class="form-group" >
 		@if(isset($languages) && !empty($languages))
+			@if(isset($page) && !empty($page))
+			<input type="hidden" name="resource_id" value="{{$page->id}}">
+			@endif
 		{!! Form::label('language_id', 'Language'); !!}
 {{--		@if(isset($parent_lang_id) || (isset($page) && $page->lang == 'arm'))--}}
 {{--			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
@@ -112,6 +115,7 @@
 
 		{!! Form::select('language_id', $languages, isset($language_id) ? $language_id : null, ['class' => 'form-control select2 languages']); !!}
 		@endif
+	</div>
 	<div class="form-group">
 		{!! Form::label('template', 'Page Template'); !!}
 		{!! Form::select('template', [

@@ -78,38 +78,48 @@
 		{!! Form::label('status', 'Status'); !!}
 		{!! Form::select('status', ['published' => 'Published', 'draft' => 'Draft'], null, ['class' => 'form-control select2']); !!}
 	</div>
+{{--	<div class="form-group">--}}
+{{--		{!! Form::label('lang', 'Language'); !!}--}}
+{{--		@if(isset($parent_lang_id) || (isset($lecturer) && $lecturer->lang == 'arm'))--}}
+{{--			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
+{{--		@else--}}
+{{--			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}--}}
+{{--			--}}
+{{--		@endif--}}
+{{--	</div>--}}
+
 	<div class="form-group">
-		{!! Form::label('lang', 'Language'); !!}
-		@if(isset($parent_lang_id) || (isset($lecturer) && $lecturer->lang == 'arm'))
-			{!! Form::select('lang', ['arm' => 'Հայերեն'], null, ['class' => 'form-control select2', 'readonly']); !!}
-		@else
-			{!! Form::select('lang', ['en' => 'English'], null, ['class' => 'form-control select2', 'readonly']); !!}
-			
+		@if(isset($languages) && !empty($languages))
+			@if(isset($lecturer) && !empty($lecturer))
+				<input type="hidden" name="resource_id" value="{{$lecturer->id}}">
+			@endif
+			{!! Form::label('language_id', 'Language'); !!}
+			{!! Form::select('language_id', $languages, isset($language_id) ? $language_id : null, ['class' => 'form-control select2 languages']); !!}
 		@endif
 	</div>
-	<div class="col-md-12 no-padding">
-		{!! Form::label('categories_id', 'Categories') !!}
-		<div class="form-group">
-			<div class='input-group'>
-				<span class="input-group-addon">
-				    <span class="glyphicon glyphicon-tag"></span>
-				</span>
+{{--	<div class="col-md-12 no-padding">--}}
+{{--		{!! Form::label('categories_id', 'Categories') !!}--}}
+{{--		<div class="form-group">--}}
+{{--			<div class='input-group'>--}}
+{{--				<span class="input-group-addon">--}}
+{{--				    <span class="glyphicon glyphicon-tag"></span>--}}
+{{--				</span>--}}
 
-				@if(isset($lecturer) &&  null != $lecturer_categories = $lecturer->categories()->get()->pluck('id')->toArray())
-					@if(!empty($lecturer_categories))
-		    			@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple', 'selected' => $lecturer_categories])
-					@else
-		    			@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple'])
-					@endif
-				@else
-		    		@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple'])
-				@endif
-			</div>
+{{--				@if(isset($lecturer) &&  null != $lecturer_categories = $lecturer->categories()->get()->pluck('id')->toArray())--}}
+{{--					@if(!empty($lecturer_categories))--}}
+{{--		    			@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple', 'selected' => $lecturer_categories])--}}
+{{--					@else--}}
+{{--		    			@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple'])--}}
+{{--					@endif--}}
+{{--				@else--}}
+{{--		    		@include('admin-panel::layouts.parts.categories_dropdown', ['multiple' => 'multiple'])--}}
+{{--				@endif--}}
+{{--			</div>--}}
 
-		<div class="clearfix"></div>
-		<a href="#" class="pull-right" id="add-category" data-type="lecturer"><i class="fa fa-plus"></i> Add New Category</a>
-		</div>
-	</div>
+{{--		<div class="clearfix"></div>--}}
+{{--		<a href="#" class="pull-right" id="add-category" data-type="lecturer"><i class="fa fa-plus"></i> Add New Category</a>--}}
+{{--		</div>--}}
+{{--	</div>--}}
 
 	<div class="form-group">
 		{!! Form::label('thumbnail', 'Featured Image'); !!}

@@ -160,7 +160,7 @@ CKEDITOR.dialog.add( 'simplebuttonDialog', function( editor ) {
 				element = editor.document.createElement( 'a' );
 				element.setAttribute('class', 'simple-button-plugin');
 				element.setAttribute('target', '_blank');
-				var style_button = 'display:inline-block;background-color:#27AE61;border:1px solid #27AE61;color:#fff !important;padding:5px 10px;border-radius:0px;font-size:15px;text-decoration: none !important; cursor: pointer;';
+				var style_button = 'display:inline-block;background-color:#27AE61;border:1px solid #27AE61;color:#fff;padding:5px 10px;border-radius:0px;font-size:15px;text-decoration: none !important; cursor: pointer;';
 				element.setAttribute( "style", style_button );
 				element.setText( 'Unsubscribe' );
 				this.insertMode = true;

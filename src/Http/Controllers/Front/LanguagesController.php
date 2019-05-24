@@ -5,11 +5,19 @@ namespace Codeman\Admin\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Codeman\Admin\Models\Language;
 
 class LanguagesController extends Controller
 {
-    public function changeLanguage($lang = 'hy')
+
+
+    public function changeLanguage($lang = null)
     {
+
+        $default_language = Language::orderBy('order')->first()->code;
+        if(!$lang){
+            $lang = $default_language;
+        }
         $previous_url = url()->previous();
         $previous_url = explode('/', $previous_url);
         $base_url = url()->to('/');
@@ -27,11 +35,14 @@ class LanguagesController extends Controller
         }
         $next_request = implode('/', $next_url);
         session()->put('lang', $lang);
-        LaravelLocalization::setLocale($lang);
+//        dd(session()->all());
+        \App::setLocale($lang);
+//        dd(LaravelLocalization::getCurrentLocale());
 
-        if($lang == 'en' )
+//        dd($lang, $next_request, $previous_url);
+        if($lang == $default_language )
         {
-            return redirect()->to($next_request);
+            return redirect()->to('/'.$next_request);
         }
         return redirect()->to('/'.$lang.'/'.$next_request);
 

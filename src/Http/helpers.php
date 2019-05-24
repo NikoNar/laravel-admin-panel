@@ -11,19 +11,27 @@
 	 * @param string $value
 	 * @return string
 	 */
-	function getUniqueSlug(\Illuminate\Database\Eloquent\Model $model, $value, $existing_id = null)
-	{
+    function getUniqueSlug(\Illuminate\Database\Eloquent\Model $model, $value, $existing_id = null)
+    {
 
-	    // $slug = \Illuminate\Support\Str::slug($value);
-		$slug = url_slug($value);
-	    // dd($slug);
-	    if(isset($existing_id)){
-	    	$slugCount = count($model->whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$' and id != '{$existing_id}'")->get());
-	    }else{
-	    	$slugCount = count($model->whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$' and id != '{$model->id}'")->get());
-	    }
-	    return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
-	}
+        // $slug = \Illuminate\Support\Str::slug($value);
+        $slug = url_slug($value);
+//        dd($slug);
+
+        $req_lang = request()->language_id;
+//dd($existing_id);
+        if(isset($existing_id)){
+            $lang = $model->where('id', $existing_id)->first()['language_id'];
+//            dd($lang);
+            $slugCount = count($model->whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$' and id != '{$existing_id}' and language_id = '{$lang}'")->get());
+//             dd('set', $lang, $slugCount);
+        }else{
+            $slugCount = count($model->whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$' and id != '{$model->id}' and language_id = '{$req_lang}' ")->get());
+//             dd('notset', $slugCount, $req_lang);
+        }
+//        dd(($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug);
+        return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+    }
 
 	function getMaxOrderNumber($modelName, $inputs = null)
 	{
@@ -256,11 +264,18 @@
 		return false;
 	}
 
-	function urlLang($url){
+
+	function urlLang($url, $def_lang){
 		$lang = \LaravelLocalization::getCurrentLocale();
-		
-		if($lang != 'en'){
-			$url = $lang.'/'.$url;
+
+		if($lang != $def_lang){
+            if(preg_match("/^http/i", $url)){
+                $url = explode('/', rtrim($url, '/'));
+                $url[3] = $lang.'/'.$url[3];
+                $url = implode('/', $url) .'/';
+            } else{
+                $url = $lang.'/'.$url;
+            }
 		}
 		return $url;
 	}
@@ -317,7 +332,8 @@
 	}
 
 
-	use Intervention\Image\ImageManager;
+use Codeman\Admin\Models\Language;
+use Intervention\Image\ImageManager;
 
 	function image_thumbnail($image_url, $w = null, $h = null, $safecrop = false)
 	{

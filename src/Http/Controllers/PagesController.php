@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Response;
 class PagesController extends Controller
 {
 	protected $model;
+    protected $languages;
 	/**
        * Run constructor
        *
@@ -27,6 +28,7 @@ class PagesController extends Controller
     	// $this->middleware('admin');
     	$this->CRUD = new CRUDService($model);
     	$this->model = $model;
+        $this->languages = Language::orderBy('order')->pluck('name','id')->toArray();
     }
 
     /**
@@ -36,7 +38,7 @@ class PagesController extends Controller
        */
     public function index()
     {
-    	return view('admin-panel::page.index', ['pages' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => true]);
+    	return view('admin-panel::page.index', ['pages' => $this->CRUD->getAll() , 'dates' => $this->getDatesOfResources($this->model), 'languages' => $this->languages]);
     }
 
 	/**
@@ -48,7 +50,7 @@ class PagesController extends Controller
 	{
 
 		$template = null;
-        $languages = Language::pluck('name','id')->toArray();
+        $languages = Language::orderBy('order')->pluck('name','id')->toArray();
 
         if(request()->has('template')){
 			$template = request()->get('template');
@@ -111,7 +113,7 @@ class PagesController extends Controller
 	public function translate($id, $lang, PageInterface $pageInterface)
 	{
 		$template = null;
-        $languages = Language::pluck('name','id')->toArray();
+        $languages = Language::orderBy('order')->pluck('name','id')->toArray();
 		if(request()->has('template')){
 			$template = request()->get('template');
 		}
@@ -172,7 +174,7 @@ class PagesController extends Controller
 
 		$template = null;
 		$page = $pageInterface->getById($id);
-        $languages = Language::pluck('name','id')->toArray();
+        $languages = Language::orderBy('order')->pluck('name','id')->toArray();
 		
 		if($page->template != null){
 			$template = $page->template;

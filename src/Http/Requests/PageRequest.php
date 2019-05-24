@@ -3,6 +3,7 @@
 namespace Codeman\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PageRequest extends FormRequest
 {
@@ -25,9 +26,17 @@ class PageRequest extends FormRequest
     public function rules()
     {
         if($this->get('_method') == 'PUT'){
+            $slug = $this->get('slug');
+            $lang  = $this->get('language_id');
             return [
                 'title'  => 'required',
-                'slug'   => 'required|unique:pages,slug,'.$this->get("id"),
+                'slug'   => [
+                    'required',
+                    Rule::unique('pages')->where(function ($query) use($slug, $lang) {
+                        return $query->where('slug', '!=', $slug)
+                            ->where('language_id', '!=', $lang);
+                    })
+                ],
                 'status' => 'required',
             ];
         }else{

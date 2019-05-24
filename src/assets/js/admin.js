@@ -570,4 +570,27 @@ $(function() {
     // });
 
 
+
+    // Translations
+
+    var def_lang = $('.languages').val();
+
+    $('body').off('change', '.languages').on('change', '.languages', function(e){
+        var id = $('input[name="resource_id"]').val();
+        var segments      = location.pathname.split('/');
+        var type = segments[2];
+        if(id && type){
+            if(!confirm("translate? All not saved data will be lost!")){
+                e.preventDefault();
+
+                $(this).val(def_lang);
+                $(this).select2('destroy');
+                $(this).select2();
+            } else {
+                var lang = $('.languages').val();
+                window.location.href='/admin/'+type+'/translate/'+id+'/'+lang;
+                // console.log('/admin/'+type+'/translate/'+id+'/'+lang);
+            }
+        }
+    });
 });

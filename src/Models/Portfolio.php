@@ -14,11 +14,16 @@ class Portfolio extends Model
         'thumbnail',
         'gallery',
         'order', 
-        'slug'          
+        'slug' ,
+        'language_id'
     ];
 
     public function categories()
     {
         return $this->morphToMany('Codeman\Admin\Models\Category', 'categorisable');
+    }
+    public function language()
+    {
+        return $this->belongsTo('Codeman\Admin\Models\Language');
     }
 }

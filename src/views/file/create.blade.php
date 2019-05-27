@@ -20,7 +20,7 @@
 @section('content')
 	<div class="box">
 	    <div class="box-header with-border">
-	        <h3 class="box-title">Create Partner</h3>
+	        <h3 class="box-title">Create New File</h3>
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::file.parts.forms._create_edit_form')

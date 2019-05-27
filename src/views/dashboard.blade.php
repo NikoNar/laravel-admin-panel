@@ -42,15 +42,15 @@
             <!-- /.col -->
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box ">
-                    <a href="{!! route('program-index') !!}">
-                    <span class="info-box-icon bg-red"><i class="fas fa-book"></i></i></span>
+                    <a href="{!! route('service-index') !!}">
+                    <span class="info-box-icon bg-red"><i class="fas fa-concierge-bell"></i></i></span>
                     </a>
 
                     <div class="info-box-content">
-                      <span class="info-box-text"  style="">Programs
-                      <span class="info-box-number">{!! $programs_count !!}</span>
+                      <span class="info-box-text"  style="">Services
+                      <span class="info-box-number">{!! $services_count !!}</span>
                       </span>
-                    <a href="{!! route('program-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{!! route('service-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 <!-- /.info-box-content -->
               </div>
@@ -59,16 +59,16 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box">
-                    <a href="{!!route('resource-index') !!}">
+                    <a href="{!!route('file-index') !!}">
                     <span class="info-box-icon bg-green"><i class="fas fa-briefcase"></i></span>
-                    </a>    
+                    </a>
 
-                    <div class="info-box-content">
-                      <span class="info-box-text" style="">resource
-                     
+                  <div class="info-box-content">
+                      <span class="info-box-text"  style="">Files
+                      <span class="info-box-number">{!! $files_count !!}</span>
                       </span>
-                    </div>
-                    <a href="{!! route('resource-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
+                      <a href="{!! route('file-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
+                  </div>
                 <!-- /.info-box-content -->
               </div>
               <!-- /.info-box -->
@@ -77,11 +77,11 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box">
                     <a href="{!! route('lecturer-index') !!}">
-                    <span class="info-box-icon bg-yellow"><i class="fas fa-chalkboard-teacher"></i></i></span>
+                    <span class="info-box-icon bg-yellow"><i class="fas fa-users"></i></i></span>
                     </a>
 
                     <div class="info-box-content">
-                      <span class="info-box-text"  style="">Lecturers
+                      <span class="info-box-text"  style="">Team
                       <span class="info-box-number">{!! $lecturers_count !!}</span></span>
                     </div>
                     <a href="{!! route('lecturer-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
@@ -92,10 +92,10 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box">
                     <a href="{!! route('reviews-index') !!}">
-                    <span class="info-box-icon bg-aqua"><i class="fas fa-comments"></i></i></span>
+                    <span class="info-box-icon bg-aqua"><i class="fas fa-handshake"></i></i></span>
                     </a>
                     <div class="info-box-content">
-                      <span class="info-box-text" style="">Reviews
+                      <span class="info-box-text" style="">Partners
                       <span class="info-box-number">{!! $reviews_count !!}</span>
                       </span>
                     </div>
@@ -104,23 +104,23 @@
               </div>
               <!-- /.info-box -->
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="info-box" >
-                    <a href="{!! route('applications-index') !!}">
-                      <span class="info-box-icon bg-blue"><i class="fas fa-address-card"></i></i></span>
-                    </a>
-                    <div class="info-box-content">
-                      <span class="info-box-text" style="">Applicants
-                        <span class="info-box-number">{!! $applicants_count !!}</span>
-                      </span>
-                    </div>
-                    <a href="{!! route('applications-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>
-                      
-                
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
+{{--            <div class="col-md-4 col-sm-6 col-xs-12">--}}
+{{--              <div class="info-box" >--}}
+{{--                    <a href="{!! route('applications-index') !!}">--}}
+{{--                      <span class="info-box-icon bg-blue"><i class="fas fa-address-card"></i></i></span>--}}
+{{--                    </a>--}}
+{{--                    <div class="info-box-content">--}}
+{{--                      <span class="info-box-text" style="">Applicants--}}
+{{--                        <span class="info-box-number">{!! $applicants_count !!}</span>--}}
+{{--                      </span>--}}
+{{--                    </div>--}}
+{{--                    <a href="{!! route('applications-index') !!}" class="small-box-footer info-box-text" style="position: absolute;right: 30px; bottom: 30px;">View all <i class="fa fa-arrow-circle-right"></i></a>--}}
+{{--                      --}}
+{{--                --}}
+{{--                <!-- /.info-box-content -->--}}
+{{--              </div>--}}
+{{--              <!-- /.info-box -->--}}
+{{--            </div>--}}
 
            <!--  <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-red">

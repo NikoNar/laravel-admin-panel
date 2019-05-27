@@ -224,31 +224,31 @@ class PagesController extends Controller
 
                     // $pageObject['categories'] = Category::whereHas('lecturers')->select(DB::raw('title_'.$this->lang.' as title'))->get();
 
-                    $pageObject['staff'] = Lecturer::where('language_id', $this_lang_id)->get();
-                    $pageObject['partners'] = Review::where('language_id', $this_lang_id)->get();
+                    $pageObject['staff'] = Lecturer::where(['language_id' => $this_lang_id, 'status'=>'published'])->get();
+                    $pageObject['partners'] = Review::where(['language_id'=> $this_lang_id, 'status'=>'published'])->get();
 
                     // dd($pageObject);
                 } elseif( $pageObject->template == 'index'){
                    
 
-                    $pageObject['partners'] = Review::where('language_id', $this_lang_id)->get();
-                    $pageObject['services'] = Service::where('language_id', $this_lang_id)->orderBy('order')->limit(3)->get();
-                   
+                    $pageObject['partners'] = Review::where(['language_id'=> $this_lang_id, 'status'=>'published'])->get();
+                    $pageObject['services'] = Service::where(['language_id'=> $this_lang_id, 'status'=>'published'])->orderBy('order')->limit(3)->get();
+
                 } elseif( $pageObject->template == 'testimonials'){
                     $reviews = Review::where('language_id', $this_lang_id)->get();
                     $page = $pageObject;
                     return view('testimonials', compact('reviews', 'page'));
                 } elseif( $pageObject->template == 'services'){
-                    $pageObject['services'] = Service::where('language_id', $this_lang_id)->get();
+                    $pageObject['services'] = Service::where(['language_id' => $this_lang_id, 'status'=>'published'])->get();
                 } elseif( $pageObject->template == 'publications'){
-                    $pageObject['publications'] = File::where('language_id', $this_lang_id)->where('year',  now()->year)->whereHas('categories', function($query){
+                    $pageObject['publications'] = File::where(['language_id' => $this_lang_id, 'status'=>'published'])->where('year',  now()->year)->whereHas('categories', function($query){
                         $query->where('categories.slug', 'financial-reports');
                     })->get();
 //                    $pageObject['companies'] = File::where('lang', $this->lang)->whereHas('categories', function($query){
 //                        $query->where('categories.slug', 'company');
 //                    })->get();
                 }elseif( $pageObject->template == 'useful-files'){
-                    $pageObject['useful_files'] = File::where('language_id', $this_lang_id)->whereHas('categories', function($query){
+                    $pageObject['useful_files'] = File::where(['language_id' => $this_lang_id, 'status'=>'published'])->whereHas('categories', function($query){
                         $query->where('categories.slug', 'useful-file');
                     })->get();
                 }

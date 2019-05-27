@@ -1,12 +1,15 @@
 <?php
 
 namespace Codeman\Admin\Http\Controllers;
+use Codeman\Admin\Models\File;
+use Codeman\Admin\Models\Language;
 use Codeman\Admin\Models\Page;
 use Codeman\Admin\Models\Portfolio;
 use Codeman\Admin\Models\Program;
 use Codeman\Admin\Models\Lecturer;
 use Codeman\Admin\Models\Review;
 use Codeman\Admin\Models\Application;
+use Codeman\Admin\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \Spatie\Analytics\Analytics;
@@ -67,14 +70,18 @@ class DashboardController extends Controller
             $countriesSessionsPersent[$key]['persent'] = number_format($value[2]*100/$analyticCountryStats->totalsForAllResults['ga:sessions'], 2, '.', ''); 
         }
         // dd($sessionsCharterData);
+
+        $default_lang = Language::orderBy('order')->first();
+        $def_land_id  = $default_lang->id;
     	return view('admin-panel::dashboard',
         [
-            'pages_count' => Page::where('lang', 'en')->count(),
-            'portfolio_count' => Portfolio::where('lang', 'en')->count(),
-            'programs_count' => Program::where('lang', 'en')->count(),
-            'lecturers_count' => Lecturer::where('lang', 'en')->count(),
-            'reviews_count' => Review::where('lang', 'en')->count(),
-            'applicants_count' => Application::count(),
+            'pages_count' => Page::where('language_id', $def_land_id)->count(),
+//            'portfolio_count' => Portfolio::where('language_id', $def_land_id)->count(),
+            'services_count' => Service::where('language_id', $def_land_id)->count(),
+            'lecturers_count' => Lecturer::where('language_id', $def_land_id)->count(),
+            'reviews_count' => Review::where('language_id', $def_land_id)->count(),
+            'files_count' => File::where('language_id', $def_land_id)->count(),
+//            'applicants_count' => Application::count(),
             'sessionsCharterData' => $sessionsCharterData,
             'dates' => $dates,
             // 'visitors' => $visitors,

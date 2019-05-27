@@ -21,7 +21,7 @@
 @section('content')
 	<div class="box">
 	    <div class="box-header with-border">
-	        <h3 class="box-title">Edit Partner</h3>
+	        <h3 class="box-title">Edit Service</h3>
 	       
 	        <a href="{{ route('service-create') }}" class="btn btn-primary btn-flat pull-right ">Add New</a>
 {{--	        @if(isset($parent_lang_id) || isset($service) && $service->lang == 'arm')--}}

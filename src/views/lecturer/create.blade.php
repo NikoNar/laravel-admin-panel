@@ -20,7 +20,7 @@
 @section('content')
 	<div class="box">
 	    <div class="box-header with-border">
-	        <h3 class="box-title">Create Article</h3>
+	        <h3 class="box-title">Add  Team Member</h3>
 	    </div>
 	    <div class="box-body">
 	        @include('admin-panel::lecturer.parts.forms._create_edit_form')

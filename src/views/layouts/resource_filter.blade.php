@@ -11,7 +11,7 @@
     <div class="col-md-2 pull-right no-padding" style="margin-left: 15px;">
             <select name="search_by" id="search_by" class="form-control">
                 <option value="name" {!! request()->has('search_by') && request()->get('search_by') == 'name' ? 'selected' : '' !!}>Search By Name</option>
-                <option value="upc" {!! request()->has('search_by') && request()->get('search_by') == 'upc' ? 'selected' : '' !!}>Search By UPC</option>
+{{--                <option value="upc" {!! request()->has('search_by') && request()->get('search_by') == 'upc' ? 'selected' : '' !!}>Search By UPC</option>--}}
             </select>
     </div>
    @if(isset($languages))

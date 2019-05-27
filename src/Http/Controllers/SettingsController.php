@@ -51,12 +51,12 @@ class SettingsController extends Controller
      */
     public function createOrUpdate(Request $request)
     {
-//        dd();
+//        dd($request->all());
         if($request->site_name == null){
             $request['site_name']  = env('APP_NAME');
         }
         if($request->has('default_lang')){
-            config(['app.locale' => 'en']);
+            config(['app.locale' => Language::where('id', $request->default_lang)->first()->code]);
             $min = 0;
             Language::where('id', $request->default_lang)
                 ->update(['order' => $min]);

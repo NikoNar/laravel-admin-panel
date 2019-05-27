@@ -159,11 +159,11 @@
                            <i class="fa fa-circle-notch fz-12"></i> Add New 
                        </a>
                    </li>
-                   <li class="@if(Request::is('admin/lecturers/categories')) active @endif">
-                        <a href="{!! route('lecturer-categories') !!}">
-                            <i class="fa fa-circle-o"></i> Categories
-                        </a>
-                    </li>
+{{--                   <li class="@if(Request::is('admin/lecturers/categories')) active @endif">--}}
+{{--                        <a href="{!! route('lecturer-categories') !!}">--}}
+{{--                            <i class="fa fa-circle-o"></i> Categories--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                </ul>
            </li>
            <li class="treeview @if(Request::is('admin/review*')) active @endif">

@@ -6,7 +6,7 @@
 			<th >Title</th>
 			<th width="10%">Year</th>
 {{--			<th width="25%">File</th>--}}
-			{{-- <th width="15%">Language</th> --}}
+			 <th width="15%">Status</th>
 			<th width="10%">Created Date</th>
 			<th width="12%">Last Time Update</th>
 			<th width="13%">Actions</th>

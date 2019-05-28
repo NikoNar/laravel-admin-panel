@@ -21,7 +21,9 @@ class CreateReviewsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('thumbnail');
-            $table->text('content');
+            $table->text('content')->nullable();
+            $table->integer('language_id');
+            $table->enum('status', ['published','draft'] );
             $table->integer('order')->default(0);
             $table->timestamps();
         });

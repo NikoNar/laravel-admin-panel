@@ -28,7 +28,6 @@ class ReviewRequest extends FormRequest
          'title'  => 'required|string',
          'status' => 'required',
          'thumbnail' => 'required',
-         'content' => 'required|string',              
       ];
     }
 }

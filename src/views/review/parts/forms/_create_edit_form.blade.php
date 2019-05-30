@@ -23,8 +23,8 @@
 	<br>
 
 	<div class="form-group">
-		{!! Form::label('content', 'Content'); !!}
-		{!! Form::textarea('content', null, ['class' => 'form-control',  'id' =>  'editor']); !!}	
+		{!! Form::label('content', 'URL'); !!}
+		{!! Form::text('content', null, ['class' => 'form-control']); !!}
 	</div>
 	<div class="clearfix"></div>
 	<div class="box">

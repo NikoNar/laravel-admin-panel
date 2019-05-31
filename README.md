@@ -27,13 +27,13 @@ This package support Laravel 5.8.8 or higher.
   
   ## Step 4
     
-    Seed the database
-  
-      php artisan db:seed --class=Codeman\Admin\Database\Seeds\AdminSeeder
+    Create images/users folder under public puth
 
   ## Step 5
     
-    Create images/users folder under public puth
+    Seed the database
+  
+      php artisan db:seed --class=Codeman\\Admin\\Database\\Seeds\\AdminSeeder
   
   ## Step 6
     
